@@ -76,10 +76,16 @@
       <artifactId>zookeeper</artifactId>
       <version>3.4.6</version>
     </dependency>
-    <dependency>
-	  <groupId>org.scala-lang</groupId>
-	  <artifactId>scala-library</artifactId>
-	  <version>2.7.2</version>
-	</dependency>
+	    <dependency>
+		  <groupId>org.scala-lang</groupId>
+		  <artifactId>scala-library</artifactId>
+		  <version>2.7.2</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.google.protobuf</groupId>
+		  <artifactId>protobuf-java</artifactId>
+		  <version>2.5.0</version>
+		</dependency>
+		
   </dependencies>
 </project>
