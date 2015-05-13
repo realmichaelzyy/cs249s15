@@ -9,6 +9,8 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.ZooDefs.Ids;
+import org.apache.zookeeper.data.Stat;
+
 
 public class LockTest {
 	static public void main(String[] args) {
@@ -34,9 +36,41 @@ public class LockTest {
 			System.out.println("Before lock");
 			mutex.lock();
 			System.out.println("After lock");
-			while (true) {
-				
-			}
+			
+//            Stat stat = new Stat();
+//            byte[] inodeData = zk.getData("/lockdev", false, stat);
+//            System.out.println("Version: " + stat.getVersion());
+//            SharedInodeProto.SharedInode.Builder builder =  SharedInodeProto.SharedInode.newBuilder();
+//            builder.setNodeID("aaa");
+//            builder.setNextVersion(1L);
+//            builder.setHdfsDir("aaa_dir");
+//            SharedInodeProto.SharedInode.VersionNode.Builder vbuilder = SharedInodeProto.SharedInode.VersionNode.newBuilder();
+//            vbuilder.setVersion(0L);
+//            vbuilder.setHdfsSubDir("obj0_v0");
+//            builder.addExistingVersions(vbuilder.build());
+//            vbuilder.setVersion(1L);
+//            vbuilder.setHdfsSubDir("obj0_v1");
+//            builder.addExistingVersions(vbuilder.build());
+//          
+//            byte[] inodeMsg = builder.build().toByteArray();
+//            zk.setData("/lockdev", inodeMsg, stat.getVersion());
+            
+			
+//			Stat stat = new Stat();
+//            byte[] inodeData = zk.getData("/lockdev", false, stat);
+//            System.out.println("Version: " + stat.getVersion());
+//		    SharedInodeProto.SharedInode inode = SharedInodeProto.SharedInode.parseFrom(inodeData);
+//		    System.out.println("nextVersion: " + inode.getNextVersion());
+//		    System.out.println("nodeID: " + inode.getNodeID());
+//		    System.out.println("hdfsDir: " + inode.getHdfsDir());
+//		    for (int i = 0; i < inode.getExistingVersionsCount(); ++i) {
+//		        SharedInodeProto.SharedInode.VersionNode vnode = inode.getExistingVersions(i);
+//		        System.out.println("existing version " + i + ": " + vnode.getHdfsSubDir());
+//		    }
+					
+			System.out.println("Before unlock");
+			mutex.unlock();
+			System.out.println("After unlock");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
