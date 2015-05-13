@@ -23,7 +23,7 @@ import org.apache.spark._
 import org.apache.zookeeper._
 
 /** Computes an approximation to pi */
-object SparkPi {
+object SparkTest {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("Spark Pi")
     val spark = new SparkContext(conf)
