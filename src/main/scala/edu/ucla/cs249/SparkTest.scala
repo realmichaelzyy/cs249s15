@@ -32,6 +32,7 @@ object SparkTest {
     val count = spark.parallelize(1 until n, slices).map { i =>
       val zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
       zk.close()
+      var builder = SharedInodeProto.SharedInode.newBuilder()
       val x = random * 2 - 1
       val y = random * 2 - 1
       if (x*x + y*y < 1) 1 else 0
