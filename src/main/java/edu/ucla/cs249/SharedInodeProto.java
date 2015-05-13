@@ -10,376 +10,139 @@ public final class SharedInodeProto {
   }
   public interface SharedInodeOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-
+    
     // required string nodeID = 1;
-    /**
-     * <code>required string nodeID = 1;</code>
-     */
     boolean hasNodeID();
-    /**
-     * <code>required string nodeID = 1;</code>
-     */
-    java.lang.String getNodeID();
-    /**
-     * <code>required string nodeID = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNodeIDBytes();
-
+    String getNodeID();
+    
     // required int64 nextVersion = 2;
-    /**
-     * <code>required int64 nextVersion = 2;</code>
-     */
     boolean hasNextVersion();
-    /**
-     * <code>required int64 nextVersion = 2;</code>
-     */
     long getNextVersion();
-
+    
     // required string hdfsDir = 3;
-    /**
-     * <code>required string hdfsDir = 3;</code>
-     */
     boolean hasHdfsDir();
-    /**
-     * <code>required string hdfsDir = 3;</code>
-     */
-    java.lang.String getHdfsDir();
-    /**
-     * <code>required string hdfsDir = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getHdfsDirBytes();
-
+    String getHdfsDir();
+    
     // repeated .cs249.SharedInode.VersionNode existingVersions = 4;
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     java.util.List<edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode> 
         getExistingVersionsList();
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode getExistingVersions(int index);
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     int getExistingVersionsCount();
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     java.util.List<? extends edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder> 
         getExistingVersionsOrBuilderList();
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder getExistingVersionsOrBuilder(
         int index);
   }
-  /**
-   * Protobuf type {@code cs249.SharedInode}
-   */
   public static final class SharedInode extends
       com.google.protobuf.GeneratedMessage
       implements SharedInodeOrBuilder {
     // Use SharedInode.newBuilder() to construct.
-    private SharedInode(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private SharedInode(Builder builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private SharedInode(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
+    private SharedInode(boolean noInit) {}
+    
     private static final SharedInode defaultInstance;
     public static SharedInode getDefaultInstance() {
       return defaultInstance;
     }
-
+    
     public SharedInode getDefaultInstanceForType() {
       return defaultInstance;
     }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private SharedInode(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              nodeID_ = input.readBytes();
-              break;
-            }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              nextVersion_ = input.readInt64();
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              hdfsDir_ = input.readBytes();
-              break;
-            }
-            case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-                existingVersions_ = new java.util.ArrayList<edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode>();
-                mutable_bitField0_ |= 0x00000008;
-              }
-              existingVersions_.add(input.readMessage(edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.PARSER, extensionRegistry));
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-          existingVersions_ = java.util.Collections.unmodifiableList(existingVersions_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
+    
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_descriptor;
     }
-
+    
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              edu.ucla.cs249.SharedInodeProto.SharedInode.class, edu.ucla.cs249.SharedInodeProto.SharedInode.Builder.class);
+      return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_fieldAccessorTable;
     }
-
-    public static com.google.protobuf.Parser<SharedInode> PARSER =
-        new com.google.protobuf.AbstractParser<SharedInode>() {
-      public SharedInode parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SharedInode(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SharedInode> getParserForType() {
-      return PARSER;
-    }
-
+    
     public interface VersionNodeOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-
+      
       // required int64 version = 1;
-      /**
-       * <code>required int64 version = 1;</code>
-       */
       boolean hasVersion();
-      /**
-       * <code>required int64 version = 1;</code>
-       */
       long getVersion();
-
+      
       // required string hdfsSubDir = 2;
-      /**
-       * <code>required string hdfsSubDir = 2;</code>
-       */
       boolean hasHdfsSubDir();
-      /**
-       * <code>required string hdfsSubDir = 2;</code>
-       */
-      java.lang.String getHdfsSubDir();
-      /**
-       * <code>required string hdfsSubDir = 2;</code>
-       */
-      com.google.protobuf.ByteString
-          getHdfsSubDirBytes();
+      String getHdfsSubDir();
     }
-    /**
-     * Protobuf type {@code cs249.SharedInode.VersionNode}
-     */
     public static final class VersionNode extends
         com.google.protobuf.GeneratedMessage
         implements VersionNodeOrBuilder {
       // Use VersionNode.newBuilder() to construct.
-      private VersionNode(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      private VersionNode(Builder builder) {
         super(builder);
-        this.unknownFields = builder.getUnknownFields();
       }
-      private VersionNode(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
+      private VersionNode(boolean noInit) {}
+      
       private static final VersionNode defaultInstance;
       public static VersionNode getDefaultInstance() {
         return defaultInstance;
       }
-
+      
       public VersionNode getDefaultInstanceForType() {
         return defaultInstance;
       }
-
-      private final com.google.protobuf.UnknownFieldSet unknownFields;
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-          getUnknownFields() {
-        return this.unknownFields;
-      }
-      private VersionNode(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        initFields();
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 8: {
-                bitField0_ |= 0x00000001;
-                version_ = input.readInt64();
-                break;
-              }
-              case 18: {
-                bitField0_ |= 0x00000002;
-                hdfsSubDir_ = input.readBytes();
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e.getMessage()).setUnfinishedMessage(this);
-        } finally {
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
+      
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_VersionNode_descriptor;
       }
-
+      
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_VersionNode_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.class, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder.class);
+        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_VersionNode_fieldAccessorTable;
       }
-
-      public static com.google.protobuf.Parser<VersionNode> PARSER =
-          new com.google.protobuf.AbstractParser<VersionNode>() {
-        public VersionNode parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new VersionNode(input, extensionRegistry);
-        }
-      };
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<VersionNode> getParserForType() {
-        return PARSER;
-      }
-
+      
       private int bitField0_;
       // required int64 version = 1;
       public static final int VERSION_FIELD_NUMBER = 1;
       private long version_;
-      /**
-       * <code>required int64 version = 1;</code>
-       */
       public boolean hasVersion() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <code>required int64 version = 1;</code>
-       */
       public long getVersion() {
         return version_;
       }
-
+      
       // required string hdfsSubDir = 2;
       public static final int HDFSSUBDIR_FIELD_NUMBER = 2;
       private java.lang.Object hdfsSubDir_;
-      /**
-       * <code>required string hdfsSubDir = 2;</code>
-       */
       public boolean hasHdfsSubDir() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      /**
-       * <code>required string hdfsSubDir = 2;</code>
-       */
-      public java.lang.String getHdfsSubDir() {
+      public String getHdfsSubDir() {
         java.lang.Object ref = hdfsSubDir_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
+        if (ref instanceof String) {
+          return (String) ref;
         } else {
           com.google.protobuf.ByteString bs = 
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
+          String s = bs.toStringUtf8();
+          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
             hdfsSubDir_ = s;
           }
           return s;
         }
       }
-      /**
-       * <code>required string hdfsSubDir = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getHdfsSubDirBytes() {
+      private com.google.protobuf.ByteString getHdfsSubDirBytes() {
         java.lang.Object ref = hdfsSubDir_;
-        if (ref instanceof java.lang.String) {
+        if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
           hdfsSubDir_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
-
+      
       private void initFields() {
         version_ = 0L;
         hdfsSubDir_ = "";
@@ -388,7 +151,7 @@ public final class SharedInodeProto {
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
-
+        
         if (!hasVersion()) {
           memoizedIsInitialized = 0;
           return false;
@@ -400,7 +163,7 @@ public final class SharedInodeProto {
         memoizedIsInitialized = 1;
         return true;
       }
-
+      
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
         getSerializedSize();
@@ -412,12 +175,12 @@ public final class SharedInodeProto {
         }
         getUnknownFields().writeTo(output);
       }
-
+      
       private int memoizedSerializedSize = -1;
       public int getSerializedSize() {
         int size = memoizedSerializedSize;
         if (size != -1) return size;
-
+      
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
@@ -431,83 +194,94 @@ public final class SharedInodeProto {
         memoizedSerializedSize = size;
         return size;
       }
-
+      
       private static final long serialVersionUID = 0L;
       @java.lang.Override
       protected java.lang.Object writeReplace()
           throws java.io.ObjectStreamException {
         return super.writeReplace();
       }
-
+      
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
+        return newBuilder().mergeFrom(data).buildParsed();
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
+        return newBuilder().mergeFrom(data).buildParsed();
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(java.io.InputStream input)
           throws java.io.IOException {
-        return PARSER.parseFrom(input);
+        return newBuilder().mergeFrom(input).buildParsed();
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input);
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
-        return PARSER.parseFrom(input);
+        return newBuilder().mergeFrom(input).buildParsed();
       }
       public static edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
       }
-
+      
       public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
       public static Builder newBuilder(edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode prototype) {
         return newBuilder().mergeFrom(prototype);
       }
       public Builder toBuilder() { return newBuilder(this); }
-
+      
       @java.lang.Override
       protected Builder newBuilderForType(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         Builder builder = new Builder(parent);
         return builder;
       }
-      /**
-       * Protobuf type {@code cs249.SharedInode.VersionNode}
-       */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder>
          implements edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder {
@@ -515,21 +289,18 @@ public final class SharedInodeProto {
             getDescriptor() {
           return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_VersionNode_descriptor;
         }
-
+        
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_VersionNode_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.class, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder.class);
+          return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_VersionNode_fieldAccessorTable;
         }
-
+        
         // Construct using edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        
+        private Builder(BuilderParent parent) {
           super(parent);
           maybeForceBuilderInitialization();
         }
@@ -540,7 +311,7 @@ public final class SharedInodeProto {
         private static Builder create() {
           return new Builder();
         }
-
+        
         public Builder clear() {
           super.clear();
           version_ = 0L;
@@ -549,20 +320,20 @@ public final class SharedInodeProto {
           bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
-
+        
         public Builder clone() {
           return create().mergeFrom(buildPartial());
         }
-
+        
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_VersionNode_descriptor;
+          return edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.getDescriptor();
         }
-
+        
         public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode getDefaultInstanceForType() {
           return edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.getDefaultInstance();
         }
-
+        
         public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode build() {
           edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode result = buildPartial();
           if (!result.isInitialized()) {
@@ -570,7 +341,17 @@ public final class SharedInodeProto {
           }
           return result;
         }
-
+        
+        private edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return result;
+        }
+        
         public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode buildPartial() {
           edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode result = new edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode(this);
           int from_bitField0_ = bitField0_;
@@ -587,7 +368,7 @@ public final class SharedInodeProto {
           onBuilt();
           return result;
         }
-
+        
         public Builder mergeFrom(com.google.protobuf.Message other) {
           if (other instanceof edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode) {
             return mergeFrom((edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode)other);
@@ -596,21 +377,19 @@ public final class SharedInodeProto {
             return this;
           }
         }
-
+        
         public Builder mergeFrom(edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode other) {
           if (other == edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.getDefaultInstance()) return this;
           if (other.hasVersion()) {
             setVersion(other.getVersion());
           }
           if (other.hasHdfsSubDir()) {
-            bitField0_ |= 0x00000002;
-            hdfsSubDir_ = other.hdfsSubDir_;
-            onChanged();
+            setHdfsSubDir(other.getHdfsSubDir());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
-
+        
         public final boolean isInitialized() {
           if (!hasVersion()) {
             
@@ -622,102 +401,83 @@ public final class SharedInodeProto {
           }
           return true;
         }
-
+        
         public Builder mergeFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode) e.getUnfinishedMessage();
-            throw e;
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  onChanged();
+                  return this;
+                }
+                break;
+              }
+              case 8: {
+                bitField0_ |= 0x00000001;
+                version_ = input.readInt64();
+                break;
+              }
+              case 18: {
+                bitField0_ |= 0x00000002;
+                hdfsSubDir_ = input.readBytes();
+                break;
+              }
             }
           }
-          return this;
         }
+        
         private int bitField0_;
-
+        
         // required int64 version = 1;
         private long version_ ;
-        /**
-         * <code>required int64 version = 1;</code>
-         */
         public boolean hasVersion() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        /**
-         * <code>required int64 version = 1;</code>
-         */
         public long getVersion() {
           return version_;
         }
-        /**
-         * <code>required int64 version = 1;</code>
-         */
         public Builder setVersion(long value) {
           bitField0_ |= 0x00000001;
           version_ = value;
           onChanged();
           return this;
         }
-        /**
-         * <code>required int64 version = 1;</code>
-         */
         public Builder clearVersion() {
           bitField0_ = (bitField0_ & ~0x00000001);
           version_ = 0L;
           onChanged();
           return this;
         }
-
+        
         // required string hdfsSubDir = 2;
         private java.lang.Object hdfsSubDir_ = "";
-        /**
-         * <code>required string hdfsSubDir = 2;</code>
-         */
         public boolean hasHdfsSubDir() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
-        /**
-         * <code>required string hdfsSubDir = 2;</code>
-         */
-        public java.lang.String getHdfsSubDir() {
+        public String getHdfsSubDir() {
           java.lang.Object ref = hdfsSubDir_;
-          if (!(ref instanceof java.lang.String)) {
-            java.lang.String s = ((com.google.protobuf.ByteString) ref)
-                .toStringUtf8();
+          if (!(ref instanceof String)) {
+            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
             hdfsSubDir_ = s;
             return s;
           } else {
-            return (java.lang.String) ref;
+            return (String) ref;
           }
         }
-        /**
-         * <code>required string hdfsSubDir = 2;</code>
-         */
-        public com.google.protobuf.ByteString
-            getHdfsSubDirBytes() {
-          java.lang.Object ref = hdfsSubDir_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            hdfsSubDir_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>required string hdfsSubDir = 2;</code>
-         */
-        public Builder setHdfsSubDir(
-            java.lang.String value) {
+        public Builder setHdfsSubDir(String value) {
           if (value == null) {
     throw new NullPointerException();
   }
@@ -726,179 +486,125 @@ public final class SharedInodeProto {
           onChanged();
           return this;
         }
-        /**
-         * <code>required string hdfsSubDir = 2;</code>
-         */
         public Builder clearHdfsSubDir() {
           bitField0_ = (bitField0_ & ~0x00000002);
           hdfsSubDir_ = getDefaultInstance().getHdfsSubDir();
           onChanged();
           return this;
         }
-        /**
-         * <code>required string hdfsSubDir = 2;</code>
-         */
-        public Builder setHdfsSubDirBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
+        void setHdfsSubDir(com.google.protobuf.ByteString value) {
+          bitField0_ |= 0x00000002;
           hdfsSubDir_ = value;
           onChanged();
-          return this;
         }
-
+        
         // @@protoc_insertion_point(builder_scope:cs249.SharedInode.VersionNode)
       }
-
+      
       static {
         defaultInstance = new VersionNode(true);
         defaultInstance.initFields();
       }
-
+      
       // @@protoc_insertion_point(class_scope:cs249.SharedInode.VersionNode)
     }
-
+    
     private int bitField0_;
     // required string nodeID = 1;
     public static final int NODEID_FIELD_NUMBER = 1;
     private java.lang.Object nodeID_;
-    /**
-     * <code>required string nodeID = 1;</code>
-     */
     public boolean hasNodeID() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    /**
-     * <code>required string nodeID = 1;</code>
-     */
-    public java.lang.String getNodeID() {
+    public String getNodeID() {
       java.lang.Object ref = nodeID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
           nodeID_ = s;
         }
         return s;
       }
     }
-    /**
-     * <code>required string nodeID = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNodeIDBytes() {
+    private com.google.protobuf.ByteString getNodeIDBytes() {
       java.lang.Object ref = nodeID_;
-      if (ref instanceof java.lang.String) {
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
         nodeID_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-
+    
     // required int64 nextVersion = 2;
     public static final int NEXTVERSION_FIELD_NUMBER = 2;
     private long nextVersion_;
-    /**
-     * <code>required int64 nextVersion = 2;</code>
-     */
     public boolean hasNextVersion() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    /**
-     * <code>required int64 nextVersion = 2;</code>
-     */
     public long getNextVersion() {
       return nextVersion_;
     }
-
+    
     // required string hdfsDir = 3;
     public static final int HDFSDIR_FIELD_NUMBER = 3;
     private java.lang.Object hdfsDir_;
-    /**
-     * <code>required string hdfsDir = 3;</code>
-     */
     public boolean hasHdfsDir() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    /**
-     * <code>required string hdfsDir = 3;</code>
-     */
-    public java.lang.String getHdfsDir() {
+    public String getHdfsDir() {
       java.lang.Object ref = hdfsDir_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
           hdfsDir_ = s;
         }
         return s;
       }
     }
-    /**
-     * <code>required string hdfsDir = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getHdfsDirBytes() {
+    private com.google.protobuf.ByteString getHdfsDirBytes() {
       java.lang.Object ref = hdfsDir_;
-      if (ref instanceof java.lang.String) {
+      if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
         hdfsDir_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-
+    
     // repeated .cs249.SharedInode.VersionNode existingVersions = 4;
     public static final int EXISTINGVERSIONS_FIELD_NUMBER = 4;
     private java.util.List<edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode> existingVersions_;
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     public java.util.List<edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode> getExistingVersionsList() {
       return existingVersions_;
     }
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     public java.util.List<? extends edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder> 
         getExistingVersionsOrBuilderList() {
       return existingVersions_;
     }
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     public int getExistingVersionsCount() {
       return existingVersions_.size();
     }
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode getExistingVersions(int index) {
       return existingVersions_.get(index);
     }
-    /**
-     * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-     */
     public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder getExistingVersionsOrBuilder(
         int index) {
       return existingVersions_.get(index);
     }
-
+    
     private void initFields() {
       nodeID_ = "";
       nextVersion_ = 0L;
@@ -909,7 +615,7 @@ public final class SharedInodeProto {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-
+      
       if (!hasNodeID()) {
         memoizedIsInitialized = 0;
         return false;
@@ -931,7 +637,7 @@ public final class SharedInodeProto {
       memoizedIsInitialized = 1;
       return true;
     }
-
+    
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -949,12 +655,12 @@ public final class SharedInodeProto {
       }
       getUnknownFields().writeTo(output);
     }
-
+    
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-
+    
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -976,83 +682,94 @@ public final class SharedInodeProto {
       memoizedSerializedSize = size;
       return size;
     }
-
+    
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-
+    
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedInode parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
-
+    
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(edu.ucla.cs249.SharedInodeProto.SharedInode prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-
+    
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code cs249.SharedInode}
-     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements edu.ucla.cs249.SharedInodeProto.SharedInodeOrBuilder {
@@ -1060,21 +777,18 @@ public final class SharedInodeProto {
           getDescriptor() {
         return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_descriptor;
       }
-
+      
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                edu.ucla.cs249.SharedInodeProto.SharedInode.class, edu.ucla.cs249.SharedInodeProto.SharedInode.Builder.class);
+        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_fieldAccessorTable;
       }
-
+      
       // Construct using edu.ucla.cs249.SharedInodeProto.SharedInode.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1086,7 +800,7 @@ public final class SharedInodeProto {
       private static Builder create() {
         return new Builder();
       }
-
+      
       public Builder clear() {
         super.clear();
         nodeID_ = "";
@@ -1103,20 +817,20 @@ public final class SharedInodeProto {
         }
         return this;
       }
-
+      
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-
+      
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedInode_descriptor;
+        return edu.ucla.cs249.SharedInodeProto.SharedInode.getDescriptor();
       }
-
+      
       public edu.ucla.cs249.SharedInodeProto.SharedInode getDefaultInstanceForType() {
         return edu.ucla.cs249.SharedInodeProto.SharedInode.getDefaultInstance();
       }
-
+      
       public edu.ucla.cs249.SharedInodeProto.SharedInode build() {
         edu.ucla.cs249.SharedInodeProto.SharedInode result = buildPartial();
         if (!result.isInitialized()) {
@@ -1124,7 +838,17 @@ public final class SharedInodeProto {
         }
         return result;
       }
-
+      
+      private edu.ucla.cs249.SharedInodeProto.SharedInode buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        edu.ucla.cs249.SharedInodeProto.SharedInode result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
       public edu.ucla.cs249.SharedInodeProto.SharedInode buildPartial() {
         edu.ucla.cs249.SharedInodeProto.SharedInode result = new edu.ucla.cs249.SharedInodeProto.SharedInode(this);
         int from_bitField0_ = bitField0_;
@@ -1154,7 +878,7 @@ public final class SharedInodeProto {
         onBuilt();
         return result;
       }
-
+      
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof edu.ucla.cs249.SharedInodeProto.SharedInode) {
           return mergeFrom((edu.ucla.cs249.SharedInodeProto.SharedInode)other);
@@ -1163,21 +887,17 @@ public final class SharedInodeProto {
           return this;
         }
       }
-
+      
       public Builder mergeFrom(edu.ucla.cs249.SharedInodeProto.SharedInode other) {
         if (other == edu.ucla.cs249.SharedInodeProto.SharedInode.getDefaultInstance()) return this;
         if (other.hasNodeID()) {
-          bitField0_ |= 0x00000001;
-          nodeID_ = other.nodeID_;
-          onChanged();
+          setNodeID(other.getNodeID());
         }
         if (other.hasNextVersion()) {
           setNextVersion(other.getNextVersion());
         }
         if (other.hasHdfsDir()) {
-          bitField0_ |= 0x00000004;
-          hdfsDir_ = other.hdfsDir_;
-          onChanged();
+          setHdfsDir(other.getHdfsDir());
         }
         if (existingVersionsBuilder_ == null) {
           if (!other.existingVersions_.isEmpty()) {
@@ -1208,7 +928,7 @@ public final class SharedInodeProto {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-
+      
       public final boolean isInitialized() {
         if (!hasNodeID()) {
           
@@ -1230,69 +950,73 @@ public final class SharedInodeProto {
         }
         return true;
       }
-
+      
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        edu.ucla.cs249.SharedInodeProto.SharedInode parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (edu.ucla.cs249.SharedInodeProto.SharedInode) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              nodeID_ = input.readBytes();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              nextVersion_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              hdfsDir_ = input.readBytes();
+              break;
+            }
+            case 34: {
+              edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder subBuilder = edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addExistingVersions(subBuilder.buildPartial());
+              break;
+            }
           }
         }
-        return this;
       }
+      
       private int bitField0_;
-
+      
       // required string nodeID = 1;
       private java.lang.Object nodeID_ = "";
-      /**
-       * <code>required string nodeID = 1;</code>
-       */
       public boolean hasNodeID() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <code>required string nodeID = 1;</code>
-       */
-      public java.lang.String getNodeID() {
+      public String getNodeID() {
         java.lang.Object ref = nodeID_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
           nodeID_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
-      /**
-       * <code>required string nodeID = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNodeIDBytes() {
-        java.lang.Object ref = nodeID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nodeID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string nodeID = 1;</code>
-       */
-      public Builder setNodeID(
-          java.lang.String value) {
+      public Builder setNodeID(String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1301,105 +1025,55 @@ public final class SharedInodeProto {
         onChanged();
         return this;
       }
-      /**
-       * <code>required string nodeID = 1;</code>
-       */
       public Builder clearNodeID() {
         bitField0_ = (bitField0_ & ~0x00000001);
         nodeID_ = getDefaultInstance().getNodeID();
         onChanged();
         return this;
       }
-      /**
-       * <code>required string nodeID = 1;</code>
-       */
-      public Builder setNodeIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      void setNodeID(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
         nodeID_ = value;
         onChanged();
-        return this;
       }
-
+      
       // required int64 nextVersion = 2;
       private long nextVersion_ ;
-      /**
-       * <code>required int64 nextVersion = 2;</code>
-       */
       public boolean hasNextVersion() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      /**
-       * <code>required int64 nextVersion = 2;</code>
-       */
       public long getNextVersion() {
         return nextVersion_;
       }
-      /**
-       * <code>required int64 nextVersion = 2;</code>
-       */
       public Builder setNextVersion(long value) {
         bitField0_ |= 0x00000002;
         nextVersion_ = value;
         onChanged();
         return this;
       }
-      /**
-       * <code>required int64 nextVersion = 2;</code>
-       */
       public Builder clearNextVersion() {
         bitField0_ = (bitField0_ & ~0x00000002);
         nextVersion_ = 0L;
         onChanged();
         return this;
       }
-
+      
       // required string hdfsDir = 3;
       private java.lang.Object hdfsDir_ = "";
-      /**
-       * <code>required string hdfsDir = 3;</code>
-       */
       public boolean hasHdfsDir() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      /**
-       * <code>required string hdfsDir = 3;</code>
-       */
-      public java.lang.String getHdfsDir() {
+      public String getHdfsDir() {
         java.lang.Object ref = hdfsDir_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
           hdfsDir_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
-      /**
-       * <code>required string hdfsDir = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getHdfsDirBytes() {
-        java.lang.Object ref = hdfsDir_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          hdfsDir_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string hdfsDir = 3;</code>
-       */
-      public Builder setHdfsDir(
-          java.lang.String value) {
+      public Builder setHdfsDir(String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1408,29 +1082,18 @@ public final class SharedInodeProto {
         onChanged();
         return this;
       }
-      /**
-       * <code>required string hdfsDir = 3;</code>
-       */
       public Builder clearHdfsDir() {
         bitField0_ = (bitField0_ & ~0x00000004);
         hdfsDir_ = getDefaultInstance().getHdfsDir();
         onChanged();
         return this;
       }
-      /**
-       * <code>required string hdfsDir = 3;</code>
-       */
-      public Builder setHdfsDirBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
+      void setHdfsDir(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000004;
         hdfsDir_ = value;
         onChanged();
-        return this;
       }
-
+      
       // repeated .cs249.SharedInode.VersionNode existingVersions = 4;
       private java.util.List<edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode> existingVersions_ =
         java.util.Collections.emptyList();
@@ -1440,13 +1103,10 @@ public final class SharedInodeProto {
           bitField0_ |= 0x00000008;
          }
       }
-
+      
       private com.google.protobuf.RepeatedFieldBuilder<
           edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder> existingVersionsBuilder_;
-
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
+      
       public java.util.List<edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode> getExistingVersionsList() {
         if (existingVersionsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(existingVersions_);
@@ -1454,9 +1114,6 @@ public final class SharedInodeProto {
           return existingVersionsBuilder_.getMessageList();
         }
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public int getExistingVersionsCount() {
         if (existingVersionsBuilder_ == null) {
           return existingVersions_.size();
@@ -1464,9 +1121,6 @@ public final class SharedInodeProto {
           return existingVersionsBuilder_.getCount();
         }
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode getExistingVersions(int index) {
         if (existingVersionsBuilder_ == null) {
           return existingVersions_.get(index);
@@ -1474,9 +1128,6 @@ public final class SharedInodeProto {
           return existingVersionsBuilder_.getMessage(index);
         }
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder setExistingVersions(
           int index, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode value) {
         if (existingVersionsBuilder_ == null) {
@@ -1491,9 +1142,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder setExistingVersions(
           int index, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder builderForValue) {
         if (existingVersionsBuilder_ == null) {
@@ -1505,9 +1153,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder addExistingVersions(edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode value) {
         if (existingVersionsBuilder_ == null) {
           if (value == null) {
@@ -1521,9 +1166,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder addExistingVersions(
           int index, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode value) {
         if (existingVersionsBuilder_ == null) {
@@ -1538,9 +1180,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder addExistingVersions(
           edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder builderForValue) {
         if (existingVersionsBuilder_ == null) {
@@ -1552,9 +1191,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder addExistingVersions(
           int index, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder builderForValue) {
         if (existingVersionsBuilder_ == null) {
@@ -1566,9 +1202,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder addAllExistingVersions(
           java.lang.Iterable<? extends edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode> values) {
         if (existingVersionsBuilder_ == null) {
@@ -1580,9 +1213,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder clearExistingVersions() {
         if (existingVersionsBuilder_ == null) {
           existingVersions_ = java.util.Collections.emptyList();
@@ -1593,9 +1223,6 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public Builder removeExistingVersions(int index) {
         if (existingVersionsBuilder_ == null) {
           ensureExistingVersionsIsMutable();
@@ -1606,16 +1233,10 @@ public final class SharedInodeProto {
         }
         return this;
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder getExistingVersionsBuilder(
           int index) {
         return getExistingVersionsFieldBuilder().getBuilder(index);
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder getExistingVersionsOrBuilder(
           int index) {
         if (existingVersionsBuilder_ == null) {
@@ -1623,9 +1244,6 @@ public final class SharedInodeProto {
           return existingVersionsBuilder_.getMessageOrBuilder(index);
         }
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public java.util.List<? extends edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNodeOrBuilder> 
            getExistingVersionsOrBuilderList() {
         if (existingVersionsBuilder_ != null) {
@@ -1634,24 +1252,15 @@ public final class SharedInodeProto {
           return java.util.Collections.unmodifiableList(existingVersions_);
         }
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder addExistingVersionsBuilder() {
         return getExistingVersionsFieldBuilder().addBuilder(
             edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.getDefaultInstance());
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder addExistingVersionsBuilder(
           int index) {
         return getExistingVersionsFieldBuilder().addBuilder(
             index, edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.getDefaultInstance());
       }
-      /**
-       * <code>repeated .cs249.SharedInode.VersionNode existingVersions = 4;</code>
-       */
       public java.util.List<edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder> 
            getExistingVersionsBuilderList() {
         return getExistingVersionsFieldBuilder().getBuilderList();
@@ -1670,143 +1279,64 @@ public final class SharedInodeProto {
         }
         return existingVersionsBuilder_;
       }
-
+      
       // @@protoc_insertion_point(builder_scope:cs249.SharedInode)
     }
-
+    
     static {
       defaultInstance = new SharedInode(true);
       defaultInstance.initFields();
     }
-
+    
     // @@protoc_insertion_point(class_scope:cs249.SharedInode)
   }
-
+  
   public interface SharedVersionNodeOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-
+    
     // required int32 numReaders = 1;
-    /**
-     * <code>required int32 numReaders = 1;</code>
-     */
     boolean hasNumReaders();
-    /**
-     * <code>required int32 numReaders = 1;</code>
-     */
     int getNumReaders();
   }
-  /**
-   * Protobuf type {@code cs249.SharedVersionNode}
-   */
   public static final class SharedVersionNode extends
       com.google.protobuf.GeneratedMessage
       implements SharedVersionNodeOrBuilder {
     // Use SharedVersionNode.newBuilder() to construct.
-    private SharedVersionNode(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private SharedVersionNode(Builder builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private SharedVersionNode(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
+    private SharedVersionNode(boolean noInit) {}
+    
     private static final SharedVersionNode defaultInstance;
     public static SharedVersionNode getDefaultInstance() {
       return defaultInstance;
     }
-
+    
     public SharedVersionNode getDefaultInstanceForType() {
       return defaultInstance;
     }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private SharedVersionNode(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              numReaders_ = input.readInt32();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
+    
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedVersionNode_descriptor;
     }
-
+    
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedVersionNode_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              edu.ucla.cs249.SharedInodeProto.SharedVersionNode.class, edu.ucla.cs249.SharedInodeProto.SharedVersionNode.Builder.class);
+      return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedVersionNode_fieldAccessorTable;
     }
-
-    public static com.google.protobuf.Parser<SharedVersionNode> PARSER =
-        new com.google.protobuf.AbstractParser<SharedVersionNode>() {
-      public SharedVersionNode parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SharedVersionNode(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SharedVersionNode> getParserForType() {
-      return PARSER;
-    }
-
+    
     private int bitField0_;
     // required int32 numReaders = 1;
     public static final int NUMREADERS_FIELD_NUMBER = 1;
     private int numReaders_;
-    /**
-     * <code>required int32 numReaders = 1;</code>
-     */
     public boolean hasNumReaders() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    /**
-     * <code>required int32 numReaders = 1;</code>
-     */
     public int getNumReaders() {
       return numReaders_;
     }
-
+    
     private void initFields() {
       numReaders_ = 0;
     }
@@ -1814,7 +1344,7 @@ public final class SharedInodeProto {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-
+      
       if (!hasNumReaders()) {
         memoizedIsInitialized = 0;
         return false;
@@ -1822,7 +1352,7 @@ public final class SharedInodeProto {
       memoizedIsInitialized = 1;
       return true;
     }
-
+    
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -1831,12 +1361,12 @@ public final class SharedInodeProto {
       }
       getUnknownFields().writeTo(output);
     }
-
+    
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-
+    
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1846,83 +1376,94 @@ public final class SharedInodeProto {
       memoizedSerializedSize = size;
       return size;
     }
-
+    
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-
+    
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static edu.ucla.cs249.SharedInodeProto.SharedVersionNode parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
-
+    
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(edu.ucla.cs249.SharedInodeProto.SharedVersionNode prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-
+    
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code cs249.SharedVersionNode}
-     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements edu.ucla.cs249.SharedInodeProto.SharedVersionNodeOrBuilder {
@@ -1930,21 +1471,18 @@ public final class SharedInodeProto {
           getDescriptor() {
         return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedVersionNode_descriptor;
       }
-
+      
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedVersionNode_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                edu.ucla.cs249.SharedInodeProto.SharedVersionNode.class, edu.ucla.cs249.SharedInodeProto.SharedVersionNode.Builder.class);
+        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedVersionNode_fieldAccessorTable;
       }
-
+      
       // Construct using edu.ucla.cs249.SharedInodeProto.SharedVersionNode.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1955,27 +1493,27 @@ public final class SharedInodeProto {
       private static Builder create() {
         return new Builder();
       }
-
+      
       public Builder clear() {
         super.clear();
         numReaders_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
-
+      
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-
+      
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return edu.ucla.cs249.SharedInodeProto.internal_static_cs249_SharedVersionNode_descriptor;
+        return edu.ucla.cs249.SharedInodeProto.SharedVersionNode.getDescriptor();
       }
-
+      
       public edu.ucla.cs249.SharedInodeProto.SharedVersionNode getDefaultInstanceForType() {
         return edu.ucla.cs249.SharedInodeProto.SharedVersionNode.getDefaultInstance();
       }
-
+      
       public edu.ucla.cs249.SharedInodeProto.SharedVersionNode build() {
         edu.ucla.cs249.SharedInodeProto.SharedVersionNode result = buildPartial();
         if (!result.isInitialized()) {
@@ -1983,7 +1521,17 @@ public final class SharedInodeProto {
         }
         return result;
       }
-
+      
+      private edu.ucla.cs249.SharedInodeProto.SharedVersionNode buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        edu.ucla.cs249.SharedInodeProto.SharedVersionNode result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
       public edu.ucla.cs249.SharedInodeProto.SharedVersionNode buildPartial() {
         edu.ucla.cs249.SharedInodeProto.SharedVersionNode result = new edu.ucla.cs249.SharedInodeProto.SharedVersionNode(this);
         int from_bitField0_ = bitField0_;
@@ -1996,7 +1544,7 @@ public final class SharedInodeProto {
         onBuilt();
         return result;
       }
-
+      
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof edu.ucla.cs249.SharedInodeProto.SharedVersionNode) {
           return mergeFrom((edu.ucla.cs249.SharedInodeProto.SharedVersionNode)other);
@@ -2005,7 +1553,7 @@ public final class SharedInodeProto {
           return this;
         }
       }
-
+      
       public Builder mergeFrom(edu.ucla.cs249.SharedInodeProto.SharedVersionNode other) {
         if (other == edu.ucla.cs249.SharedInodeProto.SharedVersionNode.getDefaultInstance()) return this;
         if (other.hasNumReaders()) {
@@ -2014,7 +1562,7 @@ public final class SharedInodeProto {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-
+      
       public final boolean isInitialized() {
         if (!hasNumReaders()) {
           
@@ -2022,70 +1570,73 @@ public final class SharedInodeProto {
         }
         return true;
       }
-
+      
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        edu.ucla.cs249.SharedInodeProto.SharedVersionNode parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (edu.ucla.cs249.SharedInodeProto.SharedVersionNode) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              numReaders_ = input.readInt32();
+              break;
+            }
           }
         }
-        return this;
       }
+      
       private int bitField0_;
-
+      
       // required int32 numReaders = 1;
       private int numReaders_ ;
-      /**
-       * <code>required int32 numReaders = 1;</code>
-       */
       public boolean hasNumReaders() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <code>required int32 numReaders = 1;</code>
-       */
       public int getNumReaders() {
         return numReaders_;
       }
-      /**
-       * <code>required int32 numReaders = 1;</code>
-       */
       public Builder setNumReaders(int value) {
         bitField0_ |= 0x00000001;
         numReaders_ = value;
         onChanged();
         return this;
       }
-      /**
-       * <code>required int32 numReaders = 1;</code>
-       */
       public Builder clearNumReaders() {
         bitField0_ = (bitField0_ & ~0x00000001);
         numReaders_ = 0;
         onChanged();
         return this;
       }
-
+      
       // @@protoc_insertion_point(builder_scope:cs249.SharedVersionNode)
     }
-
+    
     static {
       defaultInstance = new SharedVersionNode(true);
       defaultInstance.initFields();
     }
-
+    
     // @@protoc_insertion_point(class_scope:cs249.SharedVersionNode)
   }
-
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_cs249_SharedInode_descriptor;
   private static
@@ -2101,7 +1652,7 @@ public final class SharedInodeProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_cs249_SharedVersionNode_fieldAccessorTable;
-
+  
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -2129,19 +1680,25 @@ public final class SharedInodeProto {
           internal_static_cs249_SharedInode_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_cs249_SharedInode_descriptor,
-              new java.lang.String[] { "NodeID", "NextVersion", "HdfsDir", "ExistingVersions", });
+              new java.lang.String[] { "NodeID", "NextVersion", "HdfsDir", "ExistingVersions", },
+              edu.ucla.cs249.SharedInodeProto.SharedInode.class,
+              edu.ucla.cs249.SharedInodeProto.SharedInode.Builder.class);
           internal_static_cs249_SharedInode_VersionNode_descriptor =
             internal_static_cs249_SharedInode_descriptor.getNestedTypes().get(0);
           internal_static_cs249_SharedInode_VersionNode_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_cs249_SharedInode_VersionNode_descriptor,
-              new java.lang.String[] { "Version", "HdfsSubDir", });
+              new java.lang.String[] { "Version", "HdfsSubDir", },
+              edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.class,
+              edu.ucla.cs249.SharedInodeProto.SharedInode.VersionNode.Builder.class);
           internal_static_cs249_SharedVersionNode_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_cs249_SharedVersionNode_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_cs249_SharedVersionNode_descriptor,
-              new java.lang.String[] { "NumReaders", });
+              new java.lang.String[] { "NumReaders", },
+              edu.ucla.cs249.SharedInodeProto.SharedVersionNode.class,
+              edu.ucla.cs249.SharedInodeProto.SharedVersionNode.Builder.class);
           return null;
         }
       };
@@ -2150,6 +1707,6 @@ public final class SharedInodeProto {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-
+  
   // @@protoc_insertion_point(outer_class_scope)
 }
