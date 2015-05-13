@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.spark.examples
+package edu.ucla.cs249
 
 import scala.math.random
 
