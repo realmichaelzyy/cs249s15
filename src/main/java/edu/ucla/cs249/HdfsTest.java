@@ -2,6 +2,7 @@ package edu.ucla.cs249;
 
 import java.net.URI;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -16,7 +17,7 @@ public class HdfsTest {
 			Configuration conf = new Configuration ();
 			FileSystem file = FileSystem.get (uri, conf);
 			FSDataInputStream in = file.open(new Path(uri));
-			String content = in.toString();
+			String content = IOUtils.toString(in, "UTF-8");
 			System.out.println(content);
 		} catch (Exception e) {
 			e.printStackTrace();
