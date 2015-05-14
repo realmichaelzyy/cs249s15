@@ -13,7 +13,7 @@ public class HdfsTest {
 		System.out.println("--- HDFS Test ---");
 		
 		try {
-			URI uri = URI.create ("hdfs://localhost:8020/abc.txt");
+			URI uri = URI.create ("hdfs://54.88.56.9:8020/abc.txt");
 			Configuration conf = new Configuration ();
 			FileSystem file = FileSystem.get (uri, conf);
 			FSDataInputStream in = file.open(new Path(uri));
