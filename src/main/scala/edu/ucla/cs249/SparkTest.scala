@@ -38,7 +38,7 @@ object SparkTest {
       
       serobj.getid
     }.reduce(_ + _)
-    println("Pi is roughly " + 4.0 * count / n)
+    println("count: " + count)
     spark.stop()
   }
 }
