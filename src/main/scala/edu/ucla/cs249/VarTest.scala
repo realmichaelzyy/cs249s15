@@ -1,6 +1,12 @@
 package edu.ucla.cs249
 
+import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.HashMap
+
 class SerObj(name: String, id: Int) extends Serializable {
+  var arr = new ArrayBuffer[Int]
+  var dict = new HashMap[Int, String]
+  
   def getname = name
   def getid = id
 }
