@@ -6,6 +6,7 @@ import org.apache.hadoop.fs.Path
 import java.net.URI
 import org.apache.hadoop.fs.permission.FsPermission
 import java.io.ObjectOutputStream
+import java.io.ObjectInputStream
 
 object ScalaHdfsTest {
   def main(args: Array[String]) {
@@ -22,10 +23,19 @@ object ScalaHdfsTest {
       
       val obj = new SerObj("name", 1234)
       val furi = URI.create ("hdfs://54.88.56.9:8020/dev/vardev/test0.setobj")
-      val fsos = fs.create(new Path(furi))
-      val oos = new ObjectOutputStream(fsos)
-      oos.writeObject(obj)
-      fs.setPermission(new Path(furi), perm)
+//      val fsos = fs.create(new Path(furi))
+//      val oos = new ObjectOutputStream(fsos)
+//      oos.writeObject(obj)
+//      fs.setPermission(new Path(furi), perm)
+      
+      val fsis = fs.open(new Path(furi))
+      val ois = new ObjectInputStream(fsis)
+      val readobj = ois.readObject()
+      readobj match {
+        case serobj: SerObj => 
+          println(serobj.getname)
+          println(serobj.getid)
+      }
       
     } catch {
       case e: Exception => e.printStackTrace()
