@@ -29,13 +29,14 @@ object SparkTest {
     val spark = new SparkContext(conf)
     val slices = if (args.length > 0) args(0).toInt else 2
     val n = math.min(100L * slices, Int.MaxValue).toInt // avoid overflow
-    val count = spark.parallelize(1 until n, slices).map { i =>
-      val zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
-      zk.close()
-      var builder = SharedInodeProto.SharedInode.newBuilder()
-      val x = random * 2 - 1
-      val y = random * 2 - 1
-      if (x*x + y*y < 1) 1 else 0
+    
+    var serobj = new SerObj("qqq", 5)
+    val count = spark.parallelize(1 until 100).map { i =>
+//      val zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
+//      zk.close()
+//      var builder = SharedInodeProto.SharedInode.newBuilder()
+      
+      serobj.getid
     }.reduce(_ + _)
     println("Pi is roughly " + 4.0 * count / n)
     spark.stop()
