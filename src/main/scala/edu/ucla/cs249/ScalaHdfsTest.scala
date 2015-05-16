@@ -17,6 +17,7 @@ object ScalaHdfsTest {
       val uri = URI.create ("hdfs://54.88.56.9:8020/dev/vardev")
       println(perm.toString())
       fs.mkdirs(new Path(uri), perm)
+      fs.setPermission(new Path(uri), perm)
     } catch {
       case e: Exception => e.printStackTrace()
     }
