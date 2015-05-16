@@ -5,6 +5,7 @@ import org.apache.hadoop.fs.FileSystem
 import org.apache.hadoop.fs.Path
 import java.net.URI
 import org.apache.hadoop.fs.permission.FsPermission
+import java.io.ObjectOutputStream
 
 object ScalaHdfsTest {
   def main(args: Array[String]) {
@@ -16,8 +17,16 @@ object ScalaHdfsTest {
       val perm = new FsPermission("777")
       val uri = URI.create ("hdfs://54.88.56.9:8020/dev/vardev")
       println(perm.toString())
-      fs.mkdirs(new Path(uri), perm)
+      fs.mkdirs(new Path(uri))
       fs.setPermission(new Path(uri), perm)
+      
+      val obj = new SerObj("name", 1234)
+      val furi = URI.create ("hdfs://54.88.56.9:8020/dev/vardev/test0.setobj")
+      val fsos = fs.create(new Path(furi))
+      val oos = new ObjectOutputStream(fsos)
+      oos.writeObject(obj)
+      fs.setPermission(new Path(furi), perm)
+      
     } catch {
       case e: Exception => e.printStackTrace()
     }
