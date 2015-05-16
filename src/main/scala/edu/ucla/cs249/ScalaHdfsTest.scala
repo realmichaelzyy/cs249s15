@@ -21,25 +21,27 @@ object ScalaHdfsTest {
       fs.mkdirs(new Path(uri))
       fs.setPermission(new Path(uri), perm)
       
-      val obj = new SerObj("name", 1234)
-      obj.arr += 1
-      obj.arr += 2
-      obj.dict += (1 -> "abc")
-      obj.dict += (2 -> "def")
+//      val obj = new SerObj("name", 1234)
+//      obj.arr += 1
+//      obj.arr += 2
+//      obj.dict += (1 -> "abc")
+//      obj.dict += (2 -> "def")
       val furi = URI.create ("hdfs://54.88.56.9:8020/dev/vardev/test0.setobj")
-      val fsos = fs.create(new Path(furi))
-      val oos = new ObjectOutputStream(fsos)
-      oos.writeObject(obj)
-      fs.setPermission(new Path(furi), perm)
+//      val fsos = fs.create(new Path(furi))
+//      val oos = new ObjectOutputStream(fsos)
+//      oos.writeObject(obj)
+//      fs.setPermission(new Path(furi), perm)
       
-//      val fsis = fs.open(new Path(furi))
-//      val ois = new ObjectInputStream(fsis)
-//      val readobj = ois.readObject()
-//      readobj match {
-//        case serobj: SerObj => 
-//          println(serobj.getname)
-//          println(serobj.getid)
-//      }
+      val fsis = fs.open(new Path(furi))
+      val ois = new ObjectInputStream(fsis)
+      val readobj = ois.readObject()
+      readobj match {
+        case serobj: SerObj => 
+          println(serobj.getname)
+          println(serobj.getid)
+          println(serobj.arr)
+          println(serobj.dict)
+      }
       
     } catch {
       case e: Exception => e.printStackTrace()
