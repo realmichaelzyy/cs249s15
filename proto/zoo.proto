@@ -4,19 +4,12 @@ option java_package = "edu.ucla.cs249";
 option java_outer_classname = "SharedInodeProto";
 
 message SharedInode {
-  required string nodeID = 1;
-  required int64 nextVersion = 2;
-  required string hdfsDir = 3;
+  required int64 nextVersion = 0;
 
   message VersionNode {
-    required int64 version = 1;
-    required string hdfsSubDir = 2;
+    required int64 version = 0;
+    required int32 numReaders = 1;
   }
 
-  repeated VersionNode existingVersions = 4;
-}
-
-
-message SharedVersionNode {
-  required int32 numReaders = 1;
+  repeated VersionNode existingVersions = 1;
 }
