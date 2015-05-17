@@ -34,7 +34,7 @@ object SparkTest {
     
     val count = spark.parallelize(0 until 2).map { i =>
 //      val zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
-      serobj.zk.close()
+//      serobj.zk.close()
 //      var builder = SharedInodeProto.SharedInode.newBuilder()
       
       serobj.getid
