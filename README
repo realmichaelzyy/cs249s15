@@ -1,6 +1,6 @@
 Environment Variables:
 ZK_CONNECT_STRING e.g. "54.88.56.9:2181"
-HDFS_ADDRESS e.g. "hdfs://54.88.56.9:8020/dev/vardev"
+HDFS_ADDRESS e.g. "hdfs://54.88.56.9:8020"
 
 
 
