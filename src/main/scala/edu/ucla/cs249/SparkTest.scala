@@ -31,9 +31,10 @@ object SparkTest {
     val n = math.min(100L * slices, Int.MaxValue).toInt // avoid overflow
     
     var serobj = new SerObj("qqq", 5)
-    val count = spark.parallelize(1 until 100).map { i =>
+    
+    val count = spark.parallelize(0 until 2).map { i =>
 //      val zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
-//      zk.close()
+      serobj.zk.close()
 //      var builder = SharedInodeProto.SharedInode.newBuilder()
       
       serobj.getid
