@@ -7,10 +7,10 @@ class TestThread(conf: SharedVariableConfig, name: String) extends Runnable {
   def run {
     var shared = new SharedVariable(conf)
     println("before lock " + name)
-    shared.lockByKey("abc" + name)
+    shared.lockByKey("abc")
     println("with lock " + name)
-    Thread.sleep(1000)
-    shared.unlockByKey("abc" + name)
+    Thread.sleep(10000)
+    shared.unlockByKey("abc")
     println("after lock " + name)
   }
 }
