@@ -12,6 +12,5 @@ object SharedVariableTest {
     println(zk.exists(conf.node_path, false))
     conf.destroy
     println(zk.exists(conf.node_path, false))
-    ZKUtil.deleteRecursive(zk, "/sv")
   }
 }
