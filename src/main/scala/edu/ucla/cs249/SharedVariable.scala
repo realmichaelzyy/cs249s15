@@ -44,7 +44,7 @@ class SharedVariableConfig {
     val conf = new Configuration ()
     val fs = FileSystem.get(fsuri, conf)
     val perm = new FsPermission("777")
-    val uri = URI.create (hdfs_address + "/sv/" + node_path)
+    val uri = URI.create (hdfs_address + node_path)
     fs.mkdirs(new Path(uri))
     fs.setPermission(new Path(uri), perm)
     fs.close()
@@ -63,7 +63,7 @@ class SharedVariableConfig {
 //    val fsuri = URI.create (hdfs_address)
 //    val conf = new Configuration ()
 //    val fs = FileSystem.get(fsuri, conf)
-//    val uri = URI.create (hdfs_address + "/sv/" + node_path)
+//    val uri = URI.create (hdfs_address + node_path)
 //    fs.delete(new Path(uri), true)
   }
 }
