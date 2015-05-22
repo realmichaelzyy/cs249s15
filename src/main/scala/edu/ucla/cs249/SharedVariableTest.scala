@@ -8,8 +8,9 @@ class TestThread(conf: SharedVariableConfig, name: String) extends Runnable {
     var shared = new SharedVariable(conf)
     println("before lock " + name)
     shared.lockByKey("abc")
-    println("with lock " + name)
+    println("before sleep " + name)
     Thread.sleep(10000)
+    println("after sleep " + name)
     shared.unlockByKey("abc")
     println("after lock " + name)
   }
