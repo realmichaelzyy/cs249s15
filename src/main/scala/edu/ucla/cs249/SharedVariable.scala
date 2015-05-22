@@ -60,11 +60,11 @@ class SharedVariableConfig {
     }
     
     /* destroy node on hdfs */
-//    val fsuri = URI.create (hdfs_address)
-//    val conf = new Configuration ()
-//    val fs = FileSystem.get(fsuri, conf)
-//    val uri = URI.create (hdfs_address + node_path)
-//    fs.delete(new Path(uri), true)
+    val fsuri = URI.create (hdfs_address)
+    val conf = new Configuration ()
+    val fs = FileSystem.get(fsuri, conf)
+    val uri = URI.create (hdfs_address + node_path)
+    fs.delete(new Path(uri), true)
   }
 }
 
