@@ -7,7 +7,7 @@ import org.apache.zookeeper.ZooKeeper
 class SerObj(name: String, id: Int) extends Serializable {
   var arr = new ArrayBuffer[Int]
   var dict = new HashMap[Int, String]
-  var zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
+  var zk: ZooKeeper = null
   
   def getname = name
   def getid = id
@@ -16,19 +16,20 @@ class SerObj(name: String, id: Int) extends Serializable {
 object VarTest {
   def main(args: Array[String]) {
     println("----- VarTest -----")
-    var myi = new SparkConcurrentVariable
+//    var myi = new SparkConcurrentVariable
 //    var obj = new SerObj("name", 123)
 //    myi.set(obj)
-    val zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
-    val lock = new DistributedLock(zk, "/abc", "def");
-    lock.lock()
-    lock.unlock()
-    
-    var obj = myi.get()
-    obj match {
-      case serobj: SerObj => 
-        println(serobj.getname)
-        println(serobj.getid)
-    } 
+//    val zk = new ZooKeeper(System.getenv("ZK_CONNECCT_STRING"), 5000, null)
+//    val lock = new DistributedLock(zk, "/abc", "def");
+//    lock.lock()
+//    lock.unlock()
+//    
+//    var obj = myi.get()
+//    obj match {
+//      case serobj: SerObj => 
+//        println(serobj.getname)
+//        println(serobj.getid)
+//    } 
+    println(System.getenv("ZK_CONNECT_STRING"))
   }
 }
