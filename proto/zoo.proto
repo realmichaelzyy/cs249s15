@@ -11,5 +11,5 @@ message SharedInode {
     required int32 numReaders = 2;
   }
 
-  repeated VersionNode existingVersions = 2;
+  repeated VersionNode reads = 2;
 }
