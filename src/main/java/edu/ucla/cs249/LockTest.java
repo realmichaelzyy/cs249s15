@@ -62,10 +62,10 @@ public class LockTest {
 		    SharedInodeProto.SharedInode inode = SharedInodeProto.SharedInode.parseFrom(inodeData);
 		    System.out.println("nextVersion: " + inode.getNextVersion());
 
-		    for (int i = 0; i < inode.getExistingVersionsCount(); ++i) {
+		    /*for (int i = 0; i < inode.getExistingVersionsCount(); ++i) {
 		        SharedInodeProto.SharedInode.VersionNode vnode = inode.getExistingVersions(i);
 		        System.out.println("existing version " + i + ": " + vnode.getVersion());
-		    }
+		    }*/
 					
 			System.out.println("Before unlock");
 			mutex.unlock();
