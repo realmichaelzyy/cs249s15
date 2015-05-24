@@ -266,7 +266,7 @@ class SharedVariable (conf: SharedVariableConfig) {
         builder.addReads(modifiedVersion)
       }
     }
-    zk.setData(this.conf.node_path + "/" + keyPath, builder.build().toByteArray(), -1)
+    zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
     if (!userLock) {
       _unlock
     }
@@ -308,6 +308,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     for(i <- 0 to readsLen - 1) {
       builder.addReads(reads.get(i))
     }
+    zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
     if (!userLock) {
       _unlock
     }
@@ -349,6 +350,7 @@ class SharedVariable (conf: SharedVariableConfig) {
           keyPath + "/" + version)), true)
     }
     fs.close()
+    zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
     if (!userLock) {
       _unlock
     }
