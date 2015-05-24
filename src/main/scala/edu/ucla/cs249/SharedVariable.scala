@@ -38,9 +38,9 @@ class SharedVariableConfig {
     val builder =  SharedInodeProto.SharedInode.newBuilder()
     builder.setNextVersion(1L)
     builder.clearReads()
-    node_path = zk.create("/sv/sv", builder.build().toByteArray(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL)
-    zk.create(node_path + "/default", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-    zk.create(node_path + "/dict", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+    node_path = zk.create("/sv/sv", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL)
+    zk.create(node_path + "/default", builder.build().toByteArray(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+    zk.create(node_path + "/dict", builder.build().toByteArray(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
     zk.close()
     
     /* initialize hdfs */
@@ -87,7 +87,7 @@ class SharedVariable (conf: SharedVariableConfig) {
   /* key related */
   private var byKey = false
   private var _key = "default"
-  private var keyPath = "default"
+  private var keyPath = "/default"
   
   private def ensureZK {
     if (zk == null) {
@@ -208,7 +208,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     // rebuild the metadata
     var builder = SharedInodeProto.SharedInode.newBuilder()
     builder.setNextVersion(metaData.getNextVersion())
-    for(i <- 0 to readsLen - 1) {
+    for(i <- 0 to readsLen - 2) {
       builder.addReads(reads.get(i))
     }
     var modifiedVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
@@ -239,7 +239,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     reads = metaData.getReadsList()
     readsLen = metaData.getReadsCount()
     var pos = -1
-    for(i <- 0 to readsLen) {
+    for(i <- 0 to readsLen - 1) {
       if (reads.get(i).getVersion() == mostRecentVersion.getVersion())
         pos = i
     }
@@ -252,7 +252,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     }
     builder = SharedInodeProto.SharedInode.newBuilder()
     builder.setNextVersion(metaData.getNextVersion())
-    for(i <- 0 to readsLen) {
+    for(i <- 0 to readsLen - 1) {
       var remain = reads.get(i).getNumReaders()
       if (i == pos) remain -= 1
       if (remain == 0 && i < readsLen - 1) {
@@ -297,26 +297,32 @@ class SharedVariable (conf: SharedVariableConfig) {
     /* write phase 1 */
     val stat = new Stat()
     var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
+    println(rawData)
     var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     var reads = metaData.getReadsList()
     var readsLen = metaData.getReadsCount()
     val version = metaData.getNextVersion()
     var builder = SharedInodeProto.SharedInode.newBuilder()
     builder.setNextVersion(version + 1)
-    for(i <- 0 to readsLen) {
+    for(i <- 0 to readsLen - 1) {
       builder.addReads(reads.get(i))
     }
     if (!userLock) {
       _unlock
     }
     // write data to hdfs
+    println("write to hdfs")
     val fsuri = URI.create(this.conf.hdfs_address)
     val conf = new Configuration()
     val fs = FileSystem.get(fsuri, conf)
-    val out = new ObjectOutputStream(fs.create(new Path(URI.create(
-              this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + version))))
+    val keyuri = URI.create(this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + version)
+    val os = fs.create(new Path(keyuri))
+    fs.setPermission(new Path(keyuri), new FsPermission("777"))
+    val out = new ObjectOutputStream(os)
+    println(newVal)
     out.writeObject(newVal)
     out.close()
+    println("write complete")
     /* write phase 2 */
     if (!userLock) {
       _lock
@@ -328,7 +334,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     if (metaData.getNextVersion() == version + 1) {
       builder = SharedInodeProto.SharedInode.newBuilder()
       builder.setNextVersion(version + 1)
-      for(i <- 0 to readsLen) {
+      for(i <- 0 to readsLen - 1) {
         builder.addReads(reads.get(i))
       }
       val newVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
