@@ -38,7 +38,6 @@ class SharedVariableConfig {
     val builder =  SharedInodeProto.SharedInode.newBuilder()
     builder.setNextVersion(1L)
     builder.clearReads()
-    builder.clearWrites()
     node_path = zk.create("/sv/sv", builder.build().toByteArray(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL)
     zk.create(node_path + "/default", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
     zk.create(node_path + "/dict", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);

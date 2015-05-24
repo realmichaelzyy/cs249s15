@@ -66,6 +66,7 @@ public class LockTest {
 //		        SharedInodeProto.SharedInode.VersionNode vnode = inode.getExistingVersions(i);
 //		        System.out.println("existing version " + i + ": " + vnode.getVersion());
 //		    }
+
 					
 			System.out.println("Before unlock");
 			mutex.unlock();

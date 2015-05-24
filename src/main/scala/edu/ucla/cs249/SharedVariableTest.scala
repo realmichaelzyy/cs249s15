@@ -19,6 +19,8 @@ class TestThread(conf: SharedVariableConfig, name: String) extends Runnable {
 object SharedVariableTest {
   def main(args: Array[String]) {
     println("----- Shared Variable Test -----")
+    println(System.getenv("HDFS_ADDRESS"))
+    println(System.getenv("ZK_CONNECT_STRING"))
     val conf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
     val zk = new ZooKeeper(System.getenv("ZK_CONNECT_STRING"), 5000, null)
     println(conf.node_path)
