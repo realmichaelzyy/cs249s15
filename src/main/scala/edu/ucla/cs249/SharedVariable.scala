@@ -332,6 +332,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     reads = metaData.getReadsList()
     readsLen = metaData.getReadsCount()
+    println("metadata next version: " + metaData.getNextVersion() + " write version: " + version)
     if (metaData.getNextVersion() == version + 1) {
       builder = SharedInodeProto.SharedInode.newBuilder()
       builder.setNextVersion(version + 1)
