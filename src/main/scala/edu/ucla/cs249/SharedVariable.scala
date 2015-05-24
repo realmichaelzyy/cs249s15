@@ -190,6 +190,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     var readsLen = metaData.getReadsCount()
     
+    println("readsLen: " + readsLen)
     
     if (readsLen == 0) {
       // no value has been set
