@@ -38,6 +38,7 @@ object SharedVariableTest {
     var shared = new SharedVariable(conf)
     val obj = new TestObject("ABC", 12.34)
     shared.set(obj)
+    shared.set(new TestObject("DEF", 56.78))
     println(shared.get())
     conf.destroy
     println(zk.exists(conf.node_path, false))
