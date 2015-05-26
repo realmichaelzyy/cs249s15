@@ -38,7 +38,7 @@ object SparkTest {
     
     val count = spark.parallelize(0 until 10).map { i =>
       val shared_ = new SharedVariable(svconf)
-      val obj_ = shared.get()
+      val obj_ = shared_.get()
       val num = obj_ match {
         case test_obj: TestObject => test_obj.getvalue
         case _ => 0.0
