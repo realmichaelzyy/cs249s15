@@ -5,6 +5,7 @@ import scala.collection.mutable.HashMap
 import org.apache.zookeeper.ZooKeeper
 import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
+import org.apache.zookeeper.data.Stat
 
 class SerObj() extends Serializable {
   var arr = new ArrayBuffer[Int]
@@ -30,10 +31,21 @@ object VarTest {
 //        println(serobj.getname)
 //        println(serobj.getid)
 //    } 
-    println(System.getenv("ZK_CONNECT_STRING"))
-    val conf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
-    val bos = new ByteArrayOutputStream()
-    val oos = new ObjectOutputStream(bos)
-    oos.writeObject(conf)
+//    println(System.getenv("ZK_CONNECT_STRING"))
+//    val conf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
+//    val bos = new ByteArrayOutputStream()
+//    val oos = new ObjectOutputStream(bos)
+//    oos.writeObject(conf)
+      val zk = new ZooKeeper(System.getenv("ZK_CONNECT_STRING"), 5000, null)
+      val stat = new Stat()
+      val inodeData = zk.getData("/sv/sv0000000069/dict/6e756d", false, stat)
+      println("Version: " + stat.getVersion())
+      val inode = SharedInodeProto.SharedInode.parseFrom(inodeData)
+      System.out.println("nextVersion: " + inode.getNextVersion())
+
+      for (i <- 0 until inode.getReadsCount) {
+          var vnode = inode.getReads(i)
+          println("existing version " + i + ": " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
+      }
   }
 }
