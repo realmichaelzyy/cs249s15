@@ -44,7 +44,7 @@ object SparkTest {
       obj_ match {
         case ser_obj: SerObj => 
           ser_obj.num = ser_obj.num+1
-          shared_.set(ser_obj)
+          shared_.setByKey("num", ser_obj)
         case _ => 
       }
       shared_.unlock
