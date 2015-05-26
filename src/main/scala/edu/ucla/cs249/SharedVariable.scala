@@ -226,6 +226,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     }
     
     // read from hdfs
+    println("\n\n-----------------\n" + hdfsPath + "/" + mostRecentVersion.getVersion + "----------------\n\n")
     val fsuri = URI.create(this.conf.hdfs_address)
     val conf = new Configuration()
     val fs = FileSystem.get(fsuri, conf)
