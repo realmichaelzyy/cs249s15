@@ -47,7 +47,7 @@ object SparkTest {
           shared_.set(ser_obj)
         case _ => 
       }
-      shared.unlock
+      shared_.unlock
       
       1
     }.reduce(_ + _)
