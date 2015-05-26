@@ -38,7 +38,7 @@ object VarTest {
 //    oos.writeObject(conf)
       val zk = new ZooKeeper(System.getenv("ZK_CONNECT_STRING"), 5000, null)
       val stat = new Stat()
-      val inodeData = zk.getData("/sv/sv0000000032/dict/6e756d", false, stat)
+      val inodeData = zk.getData("/sv/sv0000000035/dict/6e756d", false, stat)
       println("Version: " + stat.getVersion())
       val inode = SharedInodeProto.SharedInode.parseFrom(inodeData)
       System.out.println("nextVersion: " + inode.getNextVersion())

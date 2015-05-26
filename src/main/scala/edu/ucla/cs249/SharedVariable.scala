@@ -202,6 +202,10 @@ class SharedVariable (conf: SharedVariableConfig) {
       }
       return null
     }
+      for (i <- 0 until readsLen) {
+          var vnode = metaData.getReads(i)
+          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
+      }
 
     /* read phase 1 */
     var reads = metaData.getReadsList()
