@@ -3,14 +3,14 @@ package edu.ucla.cs249
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.HashMap
 import org.apache.zookeeper.ZooKeeper
+import java.io.ByteArrayOutputStream
+import java.io.ObjectOutputStream
 
-class SerObj(name: String, id: Int) extends Serializable {
+class SerObj() extends Serializable {
   var arr = new ArrayBuffer[Int]
   var dict = new HashMap[Int, String]
-  var zk: ZooKeeper = null
-  
-  def getname = name
-  def getid = id
+  var num = 0
+  var num2 = 0
 }
 
 object VarTest {
@@ -31,5 +31,9 @@ object VarTest {
 //        println(serobj.getid)
 //    } 
     println(System.getenv("ZK_CONNECT_STRING"))
+    val conf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
+    val bos = new ByteArrayOutputStream()
+    val oos = new ObjectOutputStream(bos)
+    oos.writeObject(conf)
   }
 }

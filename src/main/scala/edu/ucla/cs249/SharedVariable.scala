@@ -19,7 +19,7 @@ import org.apache.commons.codec.binary.Hex
 import scala.collection.mutable.HashMap
 
 
-class SharedVariableConfig {
+class SharedVariableConfig extends Serializable {
   var node_path: String = ""
   var hdfs_address: String = ""
   var zk_connect_string: String = ""
@@ -116,7 +116,10 @@ class SharedVariable (conf: SharedVariableConfig) {
     
     /* create the node corresponding to key, if not exist */
     try {
-      zk.create(itemPath, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+      val builder =  SharedInodeProto.SharedInode.newBuilder()
+      builder.setNextVersion(1L)
+      builder.clearReads()
+      zk.create(itemPath, builder.build().toByteArray(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
     } catch {
       case _ : Throwable => 
     }
@@ -190,7 +193,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     var readsLen = metaData.getReadsCount()
     
-    println("readsLen: " + readsLen)
+//    println("readsLen: " + readsLen)
     
     if (readsLen == 0) {
       // no value has been set
@@ -271,20 +274,21 @@ class SharedVariable (conf: SharedVariableConfig) {
       _unlock
     }
     
-    fs.close()
+//    fs.close()
 
     return res
   
   }
   
-  def getByKey(key: String) {
+  def getByKey(key: String) = {
     _key = key
     keyPath = "/dict/" + stringToHex(key)
     byKey = true
-    get()
+    val result = get()
     _key = "default"
     keyPath = "/default"
     byKey = false
+    result
   }
   
   def set(newVal: Any) {
@@ -298,7 +302,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     /* write phase 1 */
     val stat = new Stat()
     var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
-    println(rawData)
+//    println(rawData)
     var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     var reads = metaData.getReadsList()
     var readsLen = metaData.getReadsCount()
@@ -313,7 +317,7 @@ class SharedVariable (conf: SharedVariableConfig) {
       _unlock
     }
     // write data to hdfs
-    println("write to hdfs")
+//    println("write to hdfs")
     val fsuri = URI.create(this.conf.hdfs_address)
     val conf = new Configuration()
     val fs = FileSystem.get(fsuri, conf)
@@ -321,10 +325,10 @@ class SharedVariable (conf: SharedVariableConfig) {
     val os = fs.create(new Path(keyuri))
     fs.setPermission(new Path(keyuri), new FsPermission("777"))
     val out = new ObjectOutputStream(os)
-    println(newVal)
+//    println(newVal)
     out.writeObject(newVal)
     out.close()
-    println("write complete")
+//    println("write complete")
     /* write phase 2 */
     if (!userLock) {
       _lock
@@ -333,7 +337,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     reads = metaData.getReadsList()
     readsLen = metaData.getReadsCount()
-    println("metadata next version: " + metaData.getNextVersion() + " write version: " + version)
+//    println("metadata next version: " + metaData.getNextVersion() + " write version: " + version)
     if (metaData.getNextVersion() == version + 1) {
       builder = SharedInodeProto.SharedInode.newBuilder()
       builder.setNextVersion(version + 1)
@@ -349,7 +353,7 @@ class SharedVariable (conf: SharedVariableConfig) {
       fs.delete(new Path(URI.create(this.conf.hdfs_address + this.conf.node_path + 
           keyPath + "/" + version)), true)
     }
-    fs.close()
+//    fs.close()
     zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
     if (!userLock) {
       _unlock
@@ -364,5 +368,11 @@ class SharedVariable (conf: SharedVariableConfig) {
     _key = "default"
     keyPath = "/default"
     byKey = false
+  }
+  
+  def destroy {
+    if (zk != null) {
+      zk.close()
+    }
   }
 }
