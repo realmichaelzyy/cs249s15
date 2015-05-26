@@ -6,12 +6,10 @@ import org.apache.zookeeper.ZooKeeper
 import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
-class SerObj(name: String, id: Int) extends Serializable {
+class SerObj() extends Serializable {
   var arr = new ArrayBuffer[Int]
   var dict = new HashMap[Int, String]
-  
-  def getname = name
-  def getid = id
+  var num = 0
 }
 
 object VarTest {

@@ -33,20 +33,31 @@ object SparkTest {
 //    var serobj = new SerObj("qqq", 5)
     val svconf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
     val shared = new SharedVariable(svconf)
-    val obj = new TestObject("ABC", 3.0)
+    var obj = new SerObj()
+    obj.num = 1
     shared.set(obj)
     
     val count = spark.parallelize(0 until 10).map { i =>
       val shared_ = new SharedVariable(svconf)
-      val obj_ = shared_.get()
-      val num = obj_ match {
-        case test_obj: TestObject => test_obj.getvalue
-        case _ => 0.0
+      shared_.lock
+      val obj_ = shared_.get 
+      obj_ match {
+        case ser_obj: SerObj => 
+          ser_obj.num = ser_obj.num+1
+          shared_.set(ser_obj)
+        case _ => 
       }
-      num
+      shared.unlock
+      
+      1
     }.reduce(_ + _)
+    
+    println("\n-------------\ncount: " + count + "\n---------------")
+    shared.get() match {
+      case ser_obj: SerObj => obj = ser_obj
+    }
+    println("" + obj.num + "\n----------------\n\n")
     svconf.destroy
-    println("-------------\ncount: " + count + "\n---------------")
     spark.stop()
   }
 }
