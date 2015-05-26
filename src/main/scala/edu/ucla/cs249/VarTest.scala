@@ -10,6 +10,7 @@ class SerObj() extends Serializable {
   var arr = new ArrayBuffer[Int]
   var dict = new HashMap[Int, String]
   var num = 0
+  var num2 = 0
 }
 
 object VarTest {

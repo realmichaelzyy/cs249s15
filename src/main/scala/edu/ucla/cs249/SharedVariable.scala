@@ -190,7 +190,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     var readsLen = metaData.getReadsCount()
     
-    println("readsLen: " + readsLen)
+//    println("readsLen: " + readsLen)
     
     if (readsLen == 0) {
       // no value has been set
@@ -277,14 +277,15 @@ class SharedVariable (conf: SharedVariableConfig) {
   
   }
   
-  def getByKey(key: String) {
+  def getByKey(key: String) = {
     _key = key
     keyPath = "/dict/" + stringToHex(key)
     byKey = true
-    get()
+    val result = get()
     _key = "default"
     keyPath = "/default"
     byKey = false
+    result
   }
   
   def set(newVal: Any) {
@@ -298,7 +299,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     /* write phase 1 */
     val stat = new Stat()
     var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
-    println(rawData)
+//    println(rawData)
     var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     var reads = metaData.getReadsList()
     var readsLen = metaData.getReadsCount()
@@ -313,7 +314,7 @@ class SharedVariable (conf: SharedVariableConfig) {
       _unlock
     }
     // write data to hdfs
-    println("write to hdfs")
+//    println("write to hdfs")
     val fsuri = URI.create(this.conf.hdfs_address)
     val conf = new Configuration()
     val fs = FileSystem.get(fsuri, conf)
@@ -321,10 +322,10 @@ class SharedVariable (conf: SharedVariableConfig) {
     val os = fs.create(new Path(keyuri))
     fs.setPermission(new Path(keyuri), new FsPermission("777"))
     val out = new ObjectOutputStream(os)
-    println(newVal)
+//    println(newVal)
     out.writeObject(newVal)
     out.close()
-    println("write complete")
+//    println("write complete")
     /* write phase 2 */
     if (!userLock) {
       _lock
@@ -333,7 +334,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     reads = metaData.getReadsList()
     readsLen = metaData.getReadsCount()
-    println("metadata next version: " + metaData.getNextVersion() + " write version: " + version)
+//    println("metadata next version: " + metaData.getNextVersion() + " write version: " + version)
     if (metaData.getNextVersion() == version + 1) {
       builder = SharedInodeProto.SharedInode.newBuilder()
       builder.setNextVersion(version + 1)
