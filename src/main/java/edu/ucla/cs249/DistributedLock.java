@@ -45,6 +45,7 @@ public class DistributedLock {
         }
       }
     } catch (KeeperException e) {
+      e.printStackTrace();
       throw new IOException (e);
     } catch (InterruptedException e) {
       throw new IOException (e);
