@@ -27,17 +27,23 @@ object SparkTest {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("Spark Pi")
     val spark = new SparkContext(conf)
-    val slices = if (args.length > 0) args(0).toInt else 2
-    val n = math.min(100L * slices, Int.MaxValue).toInt // avoid overflow
+//    val slices = if (args.length > 0) args(0).toInt else 2
+//    val n = math.min(100L * slices, Int.MaxValue).toInt // avoid overflow
     
-    var serobj = new SerObj("qqq", 5)
+//    var serobj = new SerObj("qqq", 5)
+    val svconf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
+    val shared = new SharedVariable(svconf)
+    val obj = new TestObject("ABC", 3.0)
+    shared.set(obj)
     
-    val count = spark.parallelize(0 until 2).map { i =>
-//      val zk = new ZooKeeper("54.88.56.9:2181", 5000, null)
-//      serobj.zk.close()
-//      var builder = SharedInodeProto.SharedInode.newBuilder()
-      
-      serobj.getid
+    val count = spark.parallelize(0 until 10).map { i =>
+      val shared_ = new SharedVariable(svconf)
+      val obj_ = shared.get()
+      val num = obj_ match {
+        case test_obj: TestObject => test_obj.getvalue
+        case _ => 0.0
+      }
+      num
     }.reduce(_ + _)
     println("count: " + count)
     spark.stop()

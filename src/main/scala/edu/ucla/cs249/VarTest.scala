@@ -7,7 +7,6 @@ import org.apache.zookeeper.ZooKeeper
 class SerObj(name: String, id: Int) extends Serializable {
   var arr = new ArrayBuffer[Int]
   var dict = new HashMap[Int, String]
-  var zk: ZooKeeper = null
   
   def getname = name
   def getid = id
