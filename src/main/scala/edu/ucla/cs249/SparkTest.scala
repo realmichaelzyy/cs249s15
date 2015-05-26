@@ -45,7 +45,8 @@ object SparkTest {
       }
       num
     }.reduce(_ + _)
-    println("count: " + count)
+    svconf.destroy
+    println("-------------\ncount: " + count + "\n---------------")
     spark.stop()
   }
 }

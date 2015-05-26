@@ -3,6 +3,8 @@ package edu.ucla.cs249
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.HashMap
 import org.apache.zookeeper.ZooKeeper
+import java.io.ByteArrayOutputStream
+import java.io.ObjectOutputStream
 
 class SerObj(name: String, id: Int) extends Serializable {
   var arr = new ArrayBuffer[Int]
@@ -30,5 +32,9 @@ object VarTest {
 //        println(serobj.getid)
 //    } 
     println(System.getenv("ZK_CONNECT_STRING"))
+    val conf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
+    val bos = new ByteArrayOutputStream()
+    val oos = new ObjectOutputStream(bos)
+    oos.writeObject(conf)
   }
 }

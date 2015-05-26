@@ -19,7 +19,7 @@ import org.apache.commons.codec.binary.Hex
 import scala.collection.mutable.HashMap
 
 
-class SharedVariableConfig {
+class SharedVariableConfig extends Serializable {
   var node_path: String = ""
   var hdfs_address: String = ""
   var zk_connect_string: String = ""
