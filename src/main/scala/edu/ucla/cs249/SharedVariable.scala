@@ -353,7 +353,7 @@ class SharedVariable (conf: SharedVariableConfig) {
       fs.delete(new Path(URI.create(this.conf.hdfs_address + this.conf.node_path + 
           keyPath + "/" + version)), true)
     }
-    fs.close()
+//    fs.close()
     zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
     if (!userLock) {
       _unlock
