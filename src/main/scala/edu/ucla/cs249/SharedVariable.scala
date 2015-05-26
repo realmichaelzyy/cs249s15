@@ -265,7 +265,7 @@ class SharedVariable (conf: SharedVariableConfig) {
         fs.delete(new Path(URI.create(hdfsPath + "/" + reads.get(i).getVersion())), true)
       } else {
         modifiedVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
-        modifiedVersion.setVersion(mostRecentVersion.getVersion)
+        modifiedVersion.setVersion(reads.get(i).getVersion)
         modifiedVersion.setNumReaders(remain)
         builder.addReads(modifiedVersion)
       }
