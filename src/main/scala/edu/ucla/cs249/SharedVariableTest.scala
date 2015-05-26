@@ -18,6 +18,7 @@ class TestThread(conf: SharedVariableConfig, name: String) extends Runnable {
 
 class TestObject(symbol: String, value: BigDecimal) extends Serializable {
   override def toString = f"$symbol%s is ${value.toDouble}%.2f"
+  def getvalue = value.toDouble
 }
 
 object SharedVariableTest {
