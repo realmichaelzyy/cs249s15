@@ -369,4 +369,10 @@ class SharedVariable (conf: SharedVariableConfig) {
     keyPath = "/default"
     byKey = false
   }
+  
+  def destroy {
+    if (zk != null) {
+      zk.close()
+    }
+  }
 }

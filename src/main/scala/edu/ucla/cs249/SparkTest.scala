@@ -48,6 +48,7 @@ object SparkTest {
         case _ => 
       }
 //      shared_.unlockByKey("num")
+      shared_.destroy
       
       1
     }.reduce(_ + _)
