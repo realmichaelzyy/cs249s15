@@ -359,13 +359,13 @@ class SharedVariable (conf: SharedVariableConfig) {
       newVersion.setVersion(version)
       newVersion.setNumReaders(0)
       builder.addReads(newVersion)
+      zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
     } else {
       // delete the file just written because it will never be read
       fs.delete(new Path(URI.create(this.conf.hdfs_address + this.conf.node_path + 
           keyPath + "/" + version)), true)
     }
 //    fs.close()
-    zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
     if (!userLock) {
       _unlock
     }
