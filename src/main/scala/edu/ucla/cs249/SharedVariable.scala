@@ -320,7 +320,6 @@ class SharedVariable (conf: SharedVariableConfig) {
 //    println("write to hdfs")
     val fsuri = URI.create(this.conf.hdfs_address)
     val conf = new Configuration()
-    conf.setBoolean("fs.hdfs.impl.disable.cache", true);
     val fs = FileSystem.get(fsuri, conf)
     val keyuri = URI.create(this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + version)
     val os = fs.create(new Path(keyuri))
