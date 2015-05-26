@@ -274,7 +274,7 @@ class SharedVariable (conf: SharedVariableConfig) {
       _unlock
     }
     
-    fs.close()
+//    fs.close()
 
     return res
   
