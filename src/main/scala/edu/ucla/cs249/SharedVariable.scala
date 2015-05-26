@@ -202,6 +202,7 @@ class SharedVariable (conf: SharedVariableConfig) {
       }
       return null
     }
+    println("read phase 1")
       for (i <- 0 until readsLen) {
           var vnode = metaData.getReads(i)
           println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
@@ -247,6 +248,11 @@ class SharedVariable (conf: SharedVariableConfig) {
     metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     reads = metaData.getReadsList()
     readsLen = metaData.getReadsCount()
+    println("read phase 2")
+      for (i <- 0 until readsLen) {
+          var vnode = metaData.getReads(i)
+          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
+      }
     var pos = -1
     for(i <- 0 to readsLen - 1) {
       if (reads.get(i).getVersion() == mostRecentVersion.getVersion())
