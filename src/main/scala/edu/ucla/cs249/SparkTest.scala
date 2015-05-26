@@ -37,9 +37,9 @@ object SparkTest {
     obj.num = 1
     shared.setByKey("num", obj)
     
-    val count = spark.parallelize(0 until 10).map { i =>
+    val count = spark.parallelize(0 until 100).map { i =>
       val shared_ = new SharedVariable(svconf)
-      shared_.lockByKey("num")
+//      shared_.lockByKey("num")
       val obj_ = shared_.getByKey("num")
       obj_ match {
         case ser_obj: SerObj => 
@@ -47,7 +47,7 @@ object SparkTest {
           shared_.setByKey("num", ser_obj)
         case _ => 
       }
-      shared_.unlockByKey("num")
+//      shared_.unlockByKey("num")
       
       1
     }.reduce(_ + _)
