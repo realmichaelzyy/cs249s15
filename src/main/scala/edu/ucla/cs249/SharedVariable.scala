@@ -158,8 +158,7 @@ class SharedVariable (conf: SharedVariableConfig) {
   }
 
   private def hasLock() : Boolean = {
-    if (byKey && hasDictLock.contains(stringToHex(_key)) && 
-        hasDictLock.get(stringToHex(_key)) == true)
+    if (byKey && hasDictLock.contains(stringToHex(_key)))
       return true
     else if (!byKey && hasDefaultLock)
       return true
