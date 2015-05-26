@@ -116,7 +116,10 @@ class SharedVariable (conf: SharedVariableConfig) {
     
     /* create the node corresponding to key, if not exist */
     try {
-      zk.create(itemPath, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+      val builder =  SharedInodeProto.SharedInode.newBuilder()
+      builder.setNextVersion(1L)
+      builder.clearReads()
+      zk.create(itemPath, builder.build().toByteArray(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
     } catch {
       case _ : Throwable => 
     }
