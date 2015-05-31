@@ -40,7 +40,7 @@ object WriteTest {
     shared.set(obj)
     
     var beforeParallelize = Calendar.getInstance.getTimeInMillis
-    val count = spark.parallelize(0 until 10000).map { i =>
+    val count = spark.parallelize(0 until 300).map { i =>
       val shared_ = new SharedVariable(svconf)
       var obj_ = new BigObj()
       for (i <- 0 until 10000000) {
