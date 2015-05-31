@@ -52,7 +52,7 @@ object SparkTest {
       shared_.destroy
       
       1
-    }.reduce(_ + _)
+    }.count
     
     println("\n-------------\ncount: " + count + "\n---------------")
     shared.getByKey("num") match {
