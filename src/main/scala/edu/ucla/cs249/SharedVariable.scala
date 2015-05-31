@@ -205,11 +205,11 @@ class SharedVariable (conf: SharedVariableConfig) {
       }
       return null
     }
-    println("read phase 1")
-      for (i <- 0 until readsLen) {
-          var vnode = metaData.getReads(i)
-          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
-      }
+//    println("read phase 1")
+//      for (i <- 0 until readsLen) {
+//          var vnode = metaData.getReads(i)
+//          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
+//      }
 
     /* read phase 1 */
     var reads = metaData.getReadsList()
@@ -234,7 +234,7 @@ class SharedVariable (conf: SharedVariableConfig) {
     }
     
     // read from hdfs
-    println("\n\n-----------------\n" + hdfsPath + "/" + mostRecentVersion.getVersion + "----------------\n\n")
+//    println("\n\n-----------------\n" + hdfsPath + "/" + mostRecentVersion.getVersion + "----------------\n\n")
     val fsuri = URI.create(this.conf.hdfs_address)
     val conf = new Configuration()
     val fs = FileSystem.get(fsuri, conf)
@@ -251,11 +251,11 @@ class SharedVariable (conf: SharedVariableConfig) {
     metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
     reads = metaData.getReadsList()
     readsLen = metaData.getReadsCount()
-    println("read phase 2")
-      for (i <- 0 until readsLen) {
-          var vnode = metaData.getReads(i)
-          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
-      }
+//    println("read phase 2")
+//      for (i <- 0 until readsLen) {
+//          var vnode = metaData.getReads(i)
+//          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
+//      }
     var pos = -1
     for(i <- 0 to readsLen - 1) {
       if (reads.get(i).getVersion() == mostRecentVersion.getVersion())
