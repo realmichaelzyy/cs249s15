@@ -189,109 +189,134 @@ class SharedVariable (conf: SharedVariableConfig) {
     // check if the user already gets the lock
     if (!hasLock()) {
       _lock
-      userLock = false
-    }
-    val stat = new Stat()
-    var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
-    var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
-    var readsLen = metaData.getReadsCount()
-    
-//    println("readsLen: " + readsLen)
-    
-    if (readsLen == 0) {
-      // no value has been set
-      if (!userLock) {
-        _unlock
-      }
-      return null
-    }
-//    println("read phase 1")
-//      for (i <- 0 until readsLen) {
-//          var vnode = metaData.getReads(i)
-//          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
-//      }
 
-    /* read phase 1 */
-    var reads = metaData.getReadsList()
-    val mostRecentVersion = metaData.getReadsList().get(readsLen - 1)
-    // retrieve hdfs path for read and increase read count of this version
-    val hdfsPath = this.conf.hdfs_address + this.conf.node_path + keyPath
-    var cnt = mostRecentVersion.getNumReaders()
-    // rebuild the metadata
-    var builder = SharedInodeProto.SharedInode.newBuilder()
-    builder.setNextVersion(metaData.getNextVersion())
-    for(i <- 0 to readsLen - 2) {
-      builder.addReads(reads.get(i))
-    }
-    var modifiedVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
-    modifiedVersion.setVersion(mostRecentVersion.getVersion)
-    modifiedVersion.setNumReaders(cnt + 1)
-    builder.addReads(modifiedVersion)
-    zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
-    // release lock if the user does not have the lock
-    if (!userLock) {
-      _unlock
-    }
-    
-    // read from hdfs
-//    println("\n\n-----------------\n" + hdfsPath + "/" + mostRecentVersion.getVersion + "----------------\n\n")
-    val fsuri = URI.create(this.conf.hdfs_address)
-    val conf = new Configuration()
-    val fs = FileSystem.get(fsuri, conf)
-    val fsis = fs.open(new Path(URI.create(hdfsPath + "/" + mostRecentVersion.getVersion)))
-    val ois = new ObjectInputStream(fsis)
-    val res = ois.readObject()
-    fsis.close()
-    
-    /* read phase 2 */
-    if (!userLock) {
-      _lock
-    }
-    rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
-    metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
-    reads = metaData.getReadsList()
-    readsLen = metaData.getReadsCount()
-//    println("read phase 2")
-//      for (i <- 0 until readsLen) {
-//          var vnode = metaData.getReads(i)
-//          println("existing version: " + vnode.getVersion() + ", num_reads: " + vnode.getNumReaders)
-//      }
-    var pos = -1
-    for(i <- 0 to readsLen - 1) {
-      if (reads.get(i).getVersion() == mostRecentVersion.getVersion())
-        pos = i
-    }
-    if (pos < 0) {
-      if (!userLock) {
+      val stat = new Stat()
+      var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
+      var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
+      var readsLen = metaData.getReadsCount()
+      
+      if (readsLen == 0) {
+        // no value has been set
         _unlock
+        return null
       }
-      throw new RuntimeException(this.conf.node_path + keyPath + " version " + 
-          mostRecentVersion.getVersion() + " is lost during read");
-    }
-    builder = SharedInodeProto.SharedInode.newBuilder()
-    builder.setNextVersion(metaData.getNextVersion())
-    for(i <- 0 to readsLen - 1) {
-      var remain = reads.get(i).getNumReaders()
-      if (i == pos) remain -= 1
-      if (remain == 0 && i < readsLen - 1) {
-        // delete the versions which will never be read
-        fs.delete(new Path(URI.create(hdfsPath + "/" + reads.get(i).getVersion())), true)
-      } else {
-        modifiedVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
-        modifiedVersion.setVersion(reads.get(i).getVersion)
-        modifiedVersion.setNumReaders(remain)
-        builder.addReads(modifiedVersion)
-      }
-    }
-    zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
-    if (!userLock) {
-      _unlock
-    }
-    
-//    fs.close()
-
-    return res
   
+      /* read phase 1 */
+      var reads = metaData.getReadsList()
+      val mostRecentVersion = metaData.getReadsList().get(readsLen - 1)
+      // retrieve hdfs path for read and increase read count of this version
+      val hdfsPath = this.conf.hdfs_address + this.conf.node_path + keyPath
+      var cnt = mostRecentVersion.getNumReaders()
+      // rebuild the metadata
+      var builder = SharedInodeProto.SharedInode.newBuilder()
+      builder.setNextVersion(metaData.getNextVersion())
+      for(i <- 0 to readsLen - 2) {
+        builder.addReads(reads.get(i))
+      }
+      var modifiedVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
+      modifiedVersion.setVersion(mostRecentVersion.getVersion)
+      modifiedVersion.setNumReaders(cnt + 1)
+      builder.addReads(modifiedVersion)
+      zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
+      // release lock if the user does not have the lock
+
+      _unlock
+
+      // read from hdfs
+      val fsuri = URI.create(this.conf.hdfs_address)
+      val conf = new Configuration()
+      val fs = FileSystem.get(fsuri, conf)
+      val fsis = fs.open(new Path(URI.create(hdfsPath + "/" + mostRecentVersion.getVersion)))
+      val ois = new ObjectInputStream(fsis)
+      val res = ois.readObject()
+      fsis.close()
+      
+      /* read phase 2 */
+
+      _lock
+
+      rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
+      metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
+      reads = metaData.getReadsList()
+      readsLen = metaData.getReadsCount()
+      var pos = -1
+      for(i <- 0 to readsLen - 1) {
+        if (reads.get(i).getVersion() == mostRecentVersion.getVersion())
+          pos = i
+      }
+      if (pos < 0) {
+        _unlock
+        throw new RuntimeException(this.conf.node_path + keyPath + " version " + 
+            mostRecentVersion.getVersion() + " is lost during read");
+      }
+      builder = SharedInodeProto.SharedInode.newBuilder()
+      builder.setNextVersion(metaData.getNextVersion())
+      for(i <- 0 to readsLen - 1) {
+        var remain = reads.get(i).getNumReaders()
+        if (i == pos) remain -= 1
+        if (remain == 0 && i < readsLen - 1) {
+          // delete the versions which will never be read
+          fs.delete(new Path(URI.create(hdfsPath + "/" + reads.get(i).getVersion())), true)
+        } else {
+          modifiedVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
+          modifiedVersion.setVersion(reads.get(i).getVersion)
+          modifiedVersion.setNumReaders(remain)
+          builder.addReads(modifiedVersion)
+        }
+      }
+      zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
+
+      _unlock
+      
+  //    fs.close()
+  
+      return res
+    } else {
+      val stat = new Stat()
+      var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
+      var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
+      var readsLen = metaData.getReadsCount()
+      
+      if (readsLen == 0) {
+        // no value has been set
+        return null
+      }
+  
+      /* read phase 1 */
+      var reads = metaData.getReadsList()
+      val mostRecentVersion = metaData.getReadsList().get(readsLen - 1)
+      // retrieve hdfs path for read
+      val hdfsPath = this.conf.hdfs_address + this.conf.node_path + keyPath      
+      // read from hdfs
+      val fsuri = URI.create(this.conf.hdfs_address)
+      val conf = new Configuration()
+      val fs = FileSystem.get(fsuri, conf)
+      val fsis = fs.open(new Path(URI.create(hdfsPath + "/" + mostRecentVersion.getVersion)))
+      val ois = new ObjectInputStream(fsis)
+      val res = ois.readObject()
+      fsis.close()
+      
+      /* read phase 2 */
+      val builder = SharedInodeProto.SharedInode.newBuilder()
+      builder.setNextVersion(metaData.getNextVersion())
+      for(i <- 0 to readsLen - 1) {
+        var remain = reads.get(i).getNumReaders()
+        if (remain == 0 && i < readsLen - 1) {
+          // delete the versions which will never be read
+          fs.delete(new Path(URI.create(hdfsPath + "/" + reads.get(i).getVersion())), true)
+        } else {
+          val modifiedVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
+          modifiedVersion.setVersion(reads.get(i).getVersion)
+          modifiedVersion.setNumReaders(remain)
+          builder.addReads(modifiedVersion)
+        }
+      }
+      zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
+      
+  //    fs.close()
+  
+      return res
+    }
   }
   
   def getByKey(key: String) = {
