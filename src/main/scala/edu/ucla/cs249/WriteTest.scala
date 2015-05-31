@@ -47,9 +47,9 @@ object WriteTest {
         obj_.arr.+=(1)
       }
       
-      //shared_.lock
+      shared_.lock
       shared_.set(obj_)
-      //shared_.unlock
+      shared_.unlock
       
       shared_.destroy
       1
