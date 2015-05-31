@@ -18,47 +18,42 @@
 package edu.ucla.cs249
 
 import scala.math.random
-
 import org.apache.spark._
 import org.apache.zookeeper._
+import scala.collection.mutable.ArrayBuffer
+import java.util.Calendar
 
-/** Computes an approximation to pi */
-object SparkTest {
+
+object ReadTest {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("CS 249 Spark Test")
-    //.setMaster("spark://ip-172-31-53-145:7077")
+    val conf = new SparkConf().setAppName("CS 249 Read Test")
+
     val spark = new SparkContext(conf)
-//    val slices = if (args.length > 0) args(0).toInt else 2
-//    val n = math.min(100L * slices, Int.MaxValue).toInt // avoid overflow
-    
-//    var serobj = new SerObj("qqq", 5)
+
     val svconf = new SharedVariableConfig(System.getenv("HDFS_ADDRESS"), System.getenv("ZK_CONNECT_STRING"))
     val shared = new SharedVariable(svconf)
-    var obj = new SerObj()
-    obj.num = 1
-    shared.setByKey("num", obj)
+    var obj = new BigObj()
+    for (i <- 0 until 10000000) {
+       obj.arr.+=(1)
+    }
+    shared.set(obj)
     
-    val count = spark.parallelize(0 until 100).map { i =>
+    var beforeParallelize = Calendar.getInstance.getTimeInMillis
+    val count = spark.parallelize(0 until 300).map { i =>
       val shared_ = new SharedVariable(svconf)
-      //shared_.lockByKey("num")
-      val obj_ = shared_.getByKey("num")
-      obj_ match {
-        case ser_obj: SerObj => 
-          ser_obj.num = ser_obj.num+1
-          shared_.setByKey("num", ser_obj)
-        case _ => 
-      }
-      //shared_.unlockByKey("num")
-      shared_.destroy
       
+      shared_.lock
+      var obj_ = shared_.get()
+      shared_.unlock
+      
+      shared_.destroy
       1
     }.count
     
     println("\n-------------\ncount: " + count + "\n---------------")
-    shared.getByKey("num") match {
-      case ser_obj: SerObj => obj = ser_obj
-    }
-    println("obj.num: " + obj.num + "\n----------------\n\n")
+    var afterParallelize = Calendar.getInstance.getTimeInMillis
+    println("\n-------------\ntime lapse: " + (afterParallelize-beforeParallelize) + "\n--------------\n")
+    
     svconf.destroy
     spark.stop()
   }
