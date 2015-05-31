@@ -53,7 +53,9 @@ object WriteTest {
       
       shared_.destroy
       1
-    }
+    }.reduce(_ + _)
+    
+    println("\n-------------\ncount: " + count + "\n---------------")
     var afterParallelize = Calendar.getInstance.getTimeInMillis
     println("\n-------------\ntime lapse: " + (afterParallelize-beforeParallelize) + "\n--------------\n")
     
