@@ -25,7 +25,7 @@ import org.apache.zookeeper._
 /** Computes an approximation to pi */
 object SparkTest {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("Spark Pi")
+    val conf = new SparkConf().setAppName("CS 249 Spark Test").setMaster("spark://ip-172-31-53-145:7077")
     val spark = new SparkContext(conf)
 //    val slices = if (args.length > 0) args(0).toInt else 2
 //    val n = math.min(100L * slices, Int.MaxValue).toInt // avoid overflow
