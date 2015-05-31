@@ -29,7 +29,7 @@ class SharedVariableConfig extends Serializable {
     this.zk_connect_string = zk_connect_string
     
     /* initialize zookeeper */ 
-    val zk = new ZooKeeper(zk_connect_string, 5000, null)
+    val zk = new ZooKeeper(zk_connect_string, 5000, new Watcher() {})
     try {
       zk.create("/sv", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
     } catch {
