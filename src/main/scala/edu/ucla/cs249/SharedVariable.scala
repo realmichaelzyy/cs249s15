@@ -307,53 +307,90 @@ class SharedVariable (conf: SharedVariableConfig) {
   
   def set(newVal: Any) {
     ensureZK
-    var userLock = true
     // check if the user already gets the lock
     if (!hasLock()) {
       _lock
-      userLock = false
-    }
-    /* write phase 1 */
-    val stat = new Stat()
-    var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
-//    println(rawData)
-    var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
-    var reads = metaData.getReadsList()
-    var readsLen = metaData.getReadsCount()
-    val version = metaData.getNextVersion()
-    var builder = SharedInodeProto.SharedInode.newBuilder()
-    builder.setNextVersion(version + 1)
-    for(i <- 0 to readsLen - 1) {
-      builder.addReads(reads.get(i))
-    }
-    zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
-    if (!userLock) {
+
+      /* write phase 1 */
+      val stat = new Stat()
+      var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
+      var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
+      var reads = metaData.getReadsList()
+      var readsLen = metaData.getReadsCount()
+      val version = metaData.getNextVersion()
+      var builder = SharedInodeProto.SharedInode.newBuilder()
+      builder.setNextVersion(version + 1)
+      for(i <- 0 to readsLen - 1) {
+        builder.addReads(reads.get(i))
+      }
+      zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
+
       _unlock
-    }
-    // write data to hdfs
-//    println("write to hdfs")
-    val fsuri = URI.create(this.conf.hdfs_address)
-    val conf = new Configuration()
-    val fs = FileSystem.get(fsuri, conf)
-    val keyuri = URI.create(this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + version)
-    val os = fs.create(new Path(keyuri))
-    fs.setPermission(new Path(keyuri), new FsPermission("777"))
-    val out = new ObjectOutputStream(os)
-//    println(newVal)
-    out.writeObject(newVal)
-    out.close()
-//    println("write complete")
-    /* write phase 2 */
-    if (!userLock) {
+
+      // write data to hdfs
+      val fsuri = URI.create(this.conf.hdfs_address)
+      val conf = new Configuration()
+      val fs = FileSystem.get(fsuri, conf)
+      val keyuri = URI.create(this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + version)
+      val os = fs.create(new Path(keyuri))
+      fs.setPermission(new Path(keyuri), new FsPermission("777"))
+      val out = new ObjectOutputStream(os)
+      out.writeObject(newVal)
+      out.close()
+      /* write phase 2 */
       _lock
-    }
-    rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
-    metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
-    reads = metaData.getReadsList()
-    readsLen = metaData.getReadsCount()
-//    println("metadata next version: " + metaData.getNextVersion() + " write version: " + version)
-    if (metaData.getNextVersion() == version + 1) {
-      builder = SharedInodeProto.SharedInode.newBuilder()
+
+      rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
+      metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
+      reads = metaData.getReadsList()
+      readsLen = metaData.getReadsCount()
+      if (metaData.getNextVersion() == version + 1) {
+        builder = SharedInodeProto.SharedInode.newBuilder()
+        builder.setNextVersion(version + 1)
+        for(i <- 0 to readsLen - 1) {
+          if (reads.get(i).getNumReaders() == 0) {
+            // delete the versions which will never be read
+            fs.delete(new Path(URI.create(this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + reads.get(i).getVersion())), true)
+          } else {
+            builder.addReads(reads.get(i))
+          }
+        }
+        val newVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
+        newVersion.setVersion(version)
+        newVersion.setNumReaders(0)
+        builder.addReads(newVersion)
+        zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
+      } else {
+        // delete the file just written because it will never be read
+        fs.delete(new Path(URI.create(this.conf.hdfs_address + this.conf.node_path + 
+            keyPath + "/" + version)), true)
+      }
+  //    fs.close()
+
+      _unlock
+
+    } else {
+      /* write phase 1 */
+      val stat = new Stat()
+      var rawData = zk.getData(this.conf.node_path + keyPath, false, stat)
+      var metaData = SharedInodeProto.SharedInode.parseFrom(new ByteArrayInputStream(rawData))
+      var reads = metaData.getReadsList()
+      var readsLen = metaData.getReadsCount()
+      val version = metaData.getNextVersion()
+
+      // write data to hdfs
+      val fsuri = URI.create(this.conf.hdfs_address)
+      val conf = new Configuration()
+      val fs = FileSystem.get(fsuri, conf)
+      val keyuri = URI.create(this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + version)
+      val os = fs.create(new Path(keyuri))
+      fs.setPermission(new Path(keyuri), new FsPermission("777"))
+      val out = new ObjectOutputStream(os)
+      out.writeObject(newVal)
+      out.close()
+
+      /* write phase 2 */
+      val builder = SharedInodeProto.SharedInode.newBuilder()
       builder.setNextVersion(version + 1)
       for(i <- 0 to readsLen - 1) {
         if (reads.get(i).getNumReaders() == 0) {
@@ -368,14 +405,7 @@ class SharedVariable (conf: SharedVariableConfig) {
       newVersion.setNumReaders(0)
       builder.addReads(newVersion)
       zk.setData(this.conf.node_path + keyPath, builder.build().toByteArray(), -1)
-    } else {
-      // delete the file just written because it will never be read
-      fs.delete(new Path(URI.create(this.conf.hdfs_address + this.conf.node_path + 
-          keyPath + "/" + version)), true)
-    }
 //    fs.close()
-    if (!userLock) {
-      _unlock
     }
   }
   
