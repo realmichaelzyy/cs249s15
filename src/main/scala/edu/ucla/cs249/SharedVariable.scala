@@ -356,7 +356,12 @@ class SharedVariable (conf: SharedVariableConfig) {
       builder = SharedInodeProto.SharedInode.newBuilder()
       builder.setNextVersion(version + 1)
       for(i <- 0 to readsLen - 1) {
-        builder.addReads(reads.get(i))
+        if (reads.get(i).getNumReaders() == 0) {
+          // delete the versions which will never be read
+          fs.delete(new Path(URI.create(this.conf.hdfs_address + this.conf.node_path + keyPath + "/" + reads.get(i).getVersion())), true)
+        } else {
+          builder.addReads(reads.get(i))
+        }
       }
       val newVersion = SharedInodeProto.SharedInode.VersionNode.newBuilder()
       newVersion.setVersion(version)
