@@ -42,9 +42,9 @@ object ReadTest {
     val count = spark.parallelize(0 until 300).map { i =>
       val shared_ = new SharedVariable(svconf)
       
-      shared_.lock
+//      shared_.lock
       var obj_ = shared_.get()
-      shared_.unlock
+//      shared_.unlock
       
       shared_.destroy
       1
