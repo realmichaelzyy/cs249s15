@@ -17,6 +17,7 @@ object ConcurrentWriteTest {
     val conf = new SparkConf().setAppName("CS 249 Concurrent Write Test")
 
     val spark = new SparkContext(conf)
+    val hdfsAddr = System.getenv("HDFS_ADDRESS")
     
     var beforeParallelize = Calendar.getInstance.getTimeInMillis
     val count = spark.parallelize(0 until 300).map { i =>
@@ -25,10 +26,10 @@ object ConcurrentWriteTest {
         obj_.arr.+=(1)
       }
       
-      val fsuri = URI.create(System.getenv("HDFS_ADDRESS"))
+      val fsuri = URI.create(hdfsAddr)
       val fsconf = new Configuration()
       val fs = FileSystem.get(fsuri, fsconf)
-      val keyuri = URI.create(System.getenv("HDFS_ADDRESS") + "/test/" + i)
+      val keyuri = URI.create(hdfsAddr + "/test/" + i)
       val os = fs.create(new Path(keyuri))
       fs.setPermission(new Path(keyuri), new FsPermission("777"))
       val out = new ObjectOutputStream(os)
