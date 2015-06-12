@@ -35,6 +35,7 @@ object ConcurrentWriteTest {
       val out = new ObjectOutputStream(os)
       out.writeObject(obj_)
       out.close()
+      fs.delete(new Path(keyuri), true)
       1
     }.count
     
