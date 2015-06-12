@@ -2,10 +2,10 @@ Mutable Shared Variables for Spark
 =========
 Authors: Bochun Zhang & Sheng hu
 
-#What's this
+##What's this
 This project is a library to support mutable shared variable for Spark.
 
-###Sample usage (Scala)
+##Sample usage (Scala)
 ```scala
 val svconf = new SharedVariableConfig("hdfs://...", "localhost:2181")
 val count = spark.parallelize(0 until 100).map { i =>
@@ -20,23 +20,23 @@ val count = spark.parallelize(0 until 100).map { i =>
 }.count
 ```
 
-#Build
+##Build
 
 ```shell
 mvn install
 ```
 
-#Run the tests
+##Run the tests
 
 ###Set the following environment variables
 
 ####ZooKeeper Connect String
 
-> ZK_CONNECT_STRING e.g. "54.88.56.9:2181"
+* ZK_CONNECT_STRING e.g. "54.88.56.9:2181"
 
 ####HDFS address
 
-> HDFS_ADDRESS e.g. "hdfs://54.88.56.9:8020"
+* HDFS_ADDRESS e.g. "hdfs://54.88.56.9:8020"
 
 ###Example command to submit test to Spark
 
